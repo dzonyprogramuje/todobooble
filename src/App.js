@@ -1,10 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
-    <>Start to development</>
+    <>Start to development - 2</>
   );
 }
 
