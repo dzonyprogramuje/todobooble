@@ -22,9 +22,9 @@ class LoginForm extends React.Component {
     });
   }
 
-  handleLoginCheck() {
+  handleLoginCheck = () => {
     this.props.handleLogged();
-  }
+  };
 
   render() {
     return (
@@ -62,7 +62,7 @@ class LoginForm extends React.Component {
 
               <Grid item xs={12}>
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   color="primary"
                   //   onClick={() => this.props.handleLogged()}
                   onClick={this.handleLoginCheck}
