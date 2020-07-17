@@ -38,7 +38,7 @@ class App extends React.Component {
       {
         id: 0,
         kind: "Pryawtne",
-        description: "Umyc w koncu samochod i zawoskowac.",
+        description: "Umyc w koncu samochod i zawoskowac.!!!",
         date: "Lipiec 01, 2020",
         done: false,
         liked: true,
