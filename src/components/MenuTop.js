@@ -27,6 +27,9 @@ import ListIcon from "@material-ui/icons/TodayOutlined";
 import AddIcon from "@material-ui/icons/AddBoxOutlined";
 import AccountIcon from "@material-ui/icons/AccountCircleOutlined";
 import LogoutIcon from "@material-ui/icons/LockOutlined";
+import DoneIcon from "@material-ui/icons/AssignmentTurnedIn";
+
+import NewTaskComponent from "./NewTaskComponent";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -84,6 +87,8 @@ function MenuTop(props) {
         </Toolbar>
       </AppBar>
 
+      {/* <NewTaskComponent /> */}
+
       <Drawer
         anchor="left"
         open={state.menu_left}
@@ -104,6 +109,13 @@ function MenuTop(props) {
             </ListItem>
 
             <ListItem button key="Inbox">
+              <ListItemIcon>
+                <DoneIcon />
+              </ListItemIcon>
+              <ListItemText primary="Ukonczone zadania (archiwum)" />
+            </ListItem>
+
+            <ListItem button key="Inbox" onClick={props.handleNewTask}>
               <ListItemIcon>
                 <AddIcon />
               </ListItemIcon>
@@ -129,6 +141,12 @@ function MenuTop(props) {
           ;
         </div>
       </Drawer>
+      {/* close={closeDialog} state={state}  */}
+      <NewTaskComponent
+        open={props.open}
+        handleNewTask={props.handleNewTask}
+        handleAddNewTask={props.handleAddNewTask}
+      />
     </div>
   );
 }

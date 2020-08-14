@@ -34,10 +34,11 @@ class App extends React.Component {
   state = {
     username: "",
     logged: false,
+    newTaskOppened: false,
     tasks: [
       {
         id: 0,
-        kind: "Pryawtne",
+        kind: "Prywatne",
         description: "Umyc w koncu samochod i zawoskowac.!!!",
         date: "Lipiec 01, 2020",
         done: false,
@@ -82,25 +83,52 @@ class App extends React.Component {
     });
   }
 
-  handleDeleteTask(id) {
-    this.setState((prevState) => {
-      const result = prevState.tasks;
-
-      result[id].deleted = true;
-
-      return {
-        tasks: result,
-      };
-    });
-    this.setState();
-  }
-
-  // Dorobic funkcje usuwania taska + funkcje ktora bedzie do edycji taskow
-  // handleDeleteTask( id) {
-  //   this.setState(prevState => {
-  //     tasks[1].deleted: false
+  // handleDeleteTask(id) {
+  //   this.setState((prevState) => {
+  //     const result = prevState.tasks; // Przypisz do zmiennej poprzedniego state.task
+  //     result[id].deleted = true;
+  //     return {
+  //       tasks: result,
+  //     };
   //   });
   // }
+
+  handleNewTask = () => {
+    this.setState({
+      newTaskOppened: !this.state.newTaskOppened,
+    });
+  };
+
+  handleAddNewTask = (task) => {
+    let table = this.state.tasks;
+    table.push(task);
+
+    this.setState({
+      tasks: table,
+    });
+  };
+
+  handleTaskStatus(id, kind) {
+    // Przypisz do zmiennej poprzedniego state.task
+    const result = this.state.tasks;
+
+    if (kind === "delete") {
+      result[id].deleted = !result[id].deleted;
+    }
+
+    if (kind === "like") {
+      result[id].liked = !result[id].liked;
+    }
+
+    if (kind === "done") {
+      result[id].done = !result[id].done;
+    }
+
+    // Aktualizacja state
+    this.setState({
+      tasks: result,
+    });
+  }
 
   render() {
     return (
@@ -108,6 +136,9 @@ class App extends React.Component {
         <MenuTop
           logged={this.state.logged == true ? true : false}
           handleLogged={this.handleLogged.bind(this)}
+          open={this.state.newTaskOppened}
+          handleNewTask={this.handleNewTask.bind(this)}
+          handleAddNewTask={this.handleAddNewTask.bind(this)}
         />
 
         <Container>
@@ -117,8 +148,10 @@ class App extends React.Component {
             <>
               <CardComponent
                 tasks={this.state.tasks}
-                handleDeleteTask={(id) => this.handleDeleteTask(id)}
-                // deleteTask={this.handleDeleteTask}
+                // handleDeleteTask={(id) => this.handleDeleteTask(id)}
+                handleTaskStatus={(id, kind) => {
+                  this.handleTaskStatus(id, kind);
+                }}
               />
             </>
           )}

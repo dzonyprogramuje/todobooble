@@ -34,10 +34,6 @@ export default function CardComponent(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     console.log(event.currentTarget.id);
@@ -47,9 +43,23 @@ export default function CardComponent(props) {
     setAnchorEl(null);
   };
 
-  const handleOptionDelete = () => {
-    // Usuwanie konkretnego taska
-    console.log("Usun dla: " + anchorEl.id); // Nie wiem kurwa jak to zrobilem ale dziala xd
+  // const handleOptionDelete = () => {
+  //   // Usuwanie konkretnego taska.
+  //   props.handleDeleteTask(anchorEl.id);
+  //   setAnchorEl(undefined);
+  // };
+
+  const handleMiniMenu = (kind) => {
+    // Funkcja do obslugi mini menu (Edycja, Usun)
+    props.handleTaskStatus(anchorEl.id, kind);
+    setAnchorEl(undefined);
+  };
+
+  const handleTaskIcons = (e, kind) => {
+    // Funkcja do obslugi mini menu (Edycja, Usun)
+    // props.handleTaskStatus(id, kind);
+
+    props.handleTaskStatus(e.currentTarget.id, kind);
     setAnchorEl(undefined);
   };
 
@@ -57,53 +67,87 @@ export default function CardComponent(props) {
 
   return (
     <Grid container spacing={1}>
-      {tasks.map((task, id) => (
-        <Grid item xs={12} style={{ marginTop: 10 }}>
-          <Card>
-            <CardHeader
-              avatar={<Avatar src="/broken-image.jpg" />}
-              action={
-                <IconButton id={id} onClick={handleClick}>
-                  <MoreVertIcon />
-                </IconButton>
-              }
-              title={task.kind}
-              subheader={task.date}
-            />
-            <CardMedia
-              className={classes.media}
-              image="/static/images/cards/paella.jpg"
-              title="Paella dish"
-            />
-            <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {task.description}
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon color={task.liked ? "secondary" : ""} />
-              </IconButton>
-              <IconButton aria-label="share">
-                <DoneIcon />
-              </IconButton>
-            </CardActions>
-          </Card>
+      {tasks.map((task, id) => {
+        if (task.deleted !== true && task.done !== true) {
+          return (
+            <Grid item xs={12} style={{ marginTop: 10 }}>
+              <Card>
+                <CardHeader
+                  avatar={<Avatar src="/broken-image.jpg" />}
+                  action={
+                    <IconButton id={id} onClick={handleClick}>
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title={task.kind}
+                  subheader={task.date}
+                />
+                <CardMedia
+                  className={classes.media}
+                  image="/static/images/cards/paella.jpg"
+                  title="Paella dish"
+                />
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    {task.description}
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                  <IconButton
+                    aria-label="add to favorites"
+                    id={id}
+                    onClick={(e, kind) => {
+                      // console.log(e.currentTarget.id);
+                      handleTaskIcons(e, "like");
+                    }}
+                  >
+                    <FavoriteIcon color={task.liked ? "secondary" : ""} />
+                  </IconButton>
+                  <IconButton
+                    aria-label="done"
+                    id={id}
+                    onClick={(e, kind) => {
+                      // console.log(e.currentTarget.id);
+                      handleTaskIcons(e, "done");
+                    }}
+                  >
+                    <DoneIcon />
+                  </IconButton>
+                </CardActions>
+              </Card>
 
-          <Menu
-            id="options-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem>Edytuj</MenuItem>
-            <MenuItem id={id} onClick={handleOptionDelete}>
-              Usun
-            </MenuItem>
-          </Menu>
-        </Grid>
-      ))}
+              <Menu
+                id="options-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem
+                  id={id}
+                  onClick={(kind) => {
+                    handleMiniMenu("like");
+                  }}
+                >
+                  Edytuj
+                </MenuItem>
+                <MenuItem
+                  id={id}
+                  onClick={(kind) => {
+                    handleMiniMenu("delete");
+                  }}
+                >
+                  Usun
+                </MenuItem>
+              </Menu>
+            </Grid>
+          );
+        }
+      })}
     </Grid>
   );
 }
