@@ -29,19 +29,15 @@ class LoginForm extends React.Component {
   render() {
     return (
       <>
-        {this.state.register == 0 ? (
+        {this.state.register === false ? (
           <form margin={"normal"} noValidate autoComplete="off">
             <Grid container spacing={2} style={{ marginTop: 10 }}>
               <Grid item xs={12}>
-                <TextField
-                  autoFocus
-                  id="standard-required"
-                  label="Nazwa uzytkownika"
-                />
+                <TextField autoFocus id="login" label="Nazwa uzytkownika" />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  id="standard-required"
+                  id="password"
                   label="Haslo"
                   type="password"
                   autoComplete="current-password"
@@ -76,16 +72,12 @@ class LoginForm extends React.Component {
           <form margin={"normal"} noValidate autoComplete="off">
             <Grid container spacing={2} style={{ marginTop: 10 }}>
               <Grid item xs={12}>
-                <TextField
-                  autoFocus
-                  id="standard-required"
-                  label="Nazwa uzytkownika"
-                />
+                <TextField autoFocus id="login" label="Nazwa uzytkownika" />
               </Grid>
 
               <Grid item xs={12}>
                 <TextField
-                  id="standard-required"
+                  id="password"
                   label="Haslo"
                   type="password"
                   autoComplete="current-password"
@@ -94,7 +86,7 @@ class LoginForm extends React.Component {
 
               <Grid item xs={12}>
                 <TextField
-                  id="standard-required"
+                  id="password_2"
                   label="Powtorz haslo"
                   type="password"
                   autoComplete="current-password"

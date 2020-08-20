@@ -8,20 +8,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Typography from "@material-ui/core/Typography";
 
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import Divider from "@material-ui/core/Divider";
-
-import PlaylistAddCheckOutlinedIcon from "@material-ui/icons/PlaylistAddCheckOutlined";
-import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
-import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined";
-import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
 
 import ListIcon from "@material-ui/icons/TodayOutlined";
 import AddIcon from "@material-ui/icons/AddBoxOutlined";
@@ -68,7 +60,7 @@ function MenuTop(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar variant="dense">
-          {props.logged == true ? (
+          {props.logged === true ? (
             <IconButton
               edge="start"
               className={classes.menuButton}
@@ -82,7 +74,7 @@ function MenuTop(props) {
             <></>
           )}
           <Typography variant="h6" color="inherit">
-            {props.logged == true ? <>Witaj, </> : <>Zaloguj sie</>}
+            {props.logged === true ? <>Witaj, </> : <>Zaloguj sie</>}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -101,37 +93,37 @@ function MenuTop(props) {
           onKeyDown={toggleDrawer(false)}
         >
           <List>
-            <ListItem button key="Inbox">
-              <ListItemIcon>
-                <ListIcon />
-              </ListItemIcon>
-              <ListItemText primary="Moje zadania" />
-            </ListItem>
-
-            <ListItem button key="Inbox">
-              <ListItemIcon>
-                <DoneIcon />
-              </ListItemIcon>
-              <ListItemText primary="Ukonczone zadania (archiwum)" />
-            </ListItem>
-
-            <ListItem button key="Inbox" onClick={props.handleNewTask}>
+            <ListItem button key="Add" onClick={props.handleNewTask}>
               <ListItemIcon>
                 <AddIcon />
               </ListItemIcon>
               <ListItemText primary="Nowe zadanie" />
             </ListItem>
 
+            <ListItem button key="Tasks">
+              <ListItemIcon>
+                <ListIcon />
+              </ListItemIcon>
+              <ListItemText primary="Moje zadania" />
+            </ListItem>
+
+            <ListItem button key="Done">
+              <ListItemIcon>
+                <DoneIcon />
+              </ListItemIcon>
+              <ListItemText primary="Ukonczone zadania" />
+            </ListItem>
+
             <Divider />
 
-            <ListItem button key="Inbox">
+            <ListItem button key="User">
               <ListItemIcon>
                 <AccountIcon />
               </ListItemIcon>
               <ListItemText primary="Profil uzytkownika" />
             </ListItem>
 
-            <ListItem button key="Inbox" onClick={props.handleLogged}>
+            <ListItem button key="Logout" onClick={props.handleLogged}>
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
@@ -146,6 +138,7 @@ function MenuTop(props) {
         open={props.open}
         handleNewTask={props.handleNewTask}
         handleAddNewTask={props.handleAddNewTask}
+        tasks={props.tasks}
       />
     </div>
   );

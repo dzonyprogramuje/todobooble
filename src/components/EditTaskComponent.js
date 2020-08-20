@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
@@ -23,23 +24,40 @@ import DialogActions from "@material-ui/core/DialogActions";
 // }
 // const classes = useStyles();
 
-class App extends React.Component {
+class EditTaskComponent extends React.Component {
   //  { open } = this.props;
 
   state = {
+    id: undefined,
     kind: "",
     description: "",
+    date: "",
+    done: undefined,
+    liked: undefined,
+    deleted: undefined,
   };
 
-  handleNewTaskForm = (e, key) => {
+  componentDidMount() {
+    if (this.props.task) {
+      this.setState({
+        id: this.props.task.id,
+        kind: this.props.task.kind,
+        description: this.props.task.description,
+        date: this.props.task.date,
+        done: this.props.task.done,
+        liked: this.props.task.liked,
+        deleted: this.props.deleted,
+      });
+    }
+  }
+
+  handleTask = (e, key) => {
     this.setState({
-      // newTaskFormText: e.target.value,
-      // [kind]: e.target.value,
       [key]: e.target.value,
     });
   };
 
-  handleNewTaskPrepare = () => {
+  handleEditTaskSave = () => {
     const now = new Date();
     let day = now.getDate();
     let month = now.getMonth() + 1;
@@ -70,28 +88,21 @@ class App extends React.Component {
     }
 
     const time = `${day}.${month}.${year} | ${hour}:${minutes}:${seconds}`;
-    let counter = 0;
-    this.props.tasks.map((task, id) => {
-      counter++;
-    });
 
     const newTask = {
-      id: counter,
+      id: this.state.id,
       kind: this.state.kind,
       description: this.state.description,
       date: time,
-      done: false,
-      liked: false,
-      deleted: false,
+      done: this.state.done,
+      liked: this.state.liked,
+      deleted: this.state.deleted,
     };
 
-    this.props.handleAddNewTask(newTask);
-    this.props.handleNewTask();
+    this.props.handleEditTaskSave(newTask);
+    this.props.handleEditTask();
 
-    this.setState({
-      kind: "",
-      description: "",
-    });
+    this.setState({});
   };
 
   render() {
@@ -99,11 +110,11 @@ class App extends React.Component {
       <div>
         <Dialog
           fullWidth
-          onClose={this.props.handleNewTask}
+          onClose={this.props.handleEditTask}
           aria-labelledby="simple-dialog-title"
-          open={this.props.open}
+          open={this.props.task}
         >
-          <DialogTitle id="simple-dialog-title">Dodaj nowe zadanie</DialogTitle>
+          <DialogTitle id="simple-dialog-title">Edycja</DialogTitle>
 
           <form noValidate autoComplete="off">
             <List>
@@ -111,10 +122,10 @@ class App extends React.Component {
                 <TextField
                   id="standard-select-currency"
                   select
-                  label="Kategoria"
+                  // label={}
                   value={this.state.kind}
                   onChange={(e) => {
-                    this.handleNewTaskForm(e, "kind");
+                    this.handleTask(e, "kind");
                   }}
                   helperText="Wybierz kategorie swojego zadania"
                 >
@@ -137,10 +148,10 @@ class App extends React.Component {
                 <TextField
                   id="standard-full-width"
                   label="Tresc"
-                  placeholder="Wprowadz tresc taska"
+                  placeholder={this.state.description}
                   value={this.state.description}
                   onChange={(e) => {
-                    this.handleNewTaskForm(e, "description");
+                    this.handleTask(e, "description");
                   }}
                   fullWidth
                   margin="normal"
@@ -153,10 +164,10 @@ class App extends React.Component {
           </form>
 
           <DialogActions>
-            <Button onClick={this.props.handleNewTask} color="primary">
+            <Button onClick={this.props.handleEditTask} color="primary">
               Anuluj
             </Button>
-            <Button onClick={this.handleNewTaskPrepare} color="primary">
+            <Button onClick={this.handleEditTaskSave} color="primary">
               Zapisz
             </Button>
           </DialogActions>
@@ -166,4 +177,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default EditTaskComponent;
