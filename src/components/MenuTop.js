@@ -23,6 +23,8 @@ import DoneIcon from "@material-ui/icons/AssignmentTurnedIn";
 
 import NewTaskComponent from "./NewTaskComponent";
 
+import { BrowserRouter as Router, Link } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -74,7 +76,11 @@ function MenuTop(props) {
             <></>
           )}
           <Typography variant="h6" color="inherit">
-            {props.logged === true ? <>Witaj, </> : <>Zaloguj sie</>}
+            {props.logged === true ? (
+              <>Witaj, {props.name} </>
+            ) : (
+              <>Zaloguj sie</>
+            )}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -100,23 +106,27 @@ function MenuTop(props) {
               <ListItemText primary="Nowe zadanie" />
             </ListItem>
 
-            <ListItem button key="Tasks">
-              <ListItemIcon>
-                <ListIcon />
-              </ListItemIcon>
-              <ListItemText primary="Moje zadania" />
-            </ListItem>
+            <Link to="/">
+              <ListItem button key="Tasks">
+                <ListItemIcon>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="Moje zadania" />
+              </ListItem>
+            </Link>
 
-            <ListItem button key="Done">
-              <ListItemIcon>
-                <DoneIcon />
-              </ListItemIcon>
-              <ListItemText primary="Ukonczone zadania" />
-            </ListItem>
+            <Link to="/done">
+              <ListItem button key="Done">
+                <ListItemIcon>
+                  <DoneIcon />
+                </ListItemIcon>
+                <ListItemText primary="Ukonczone zadania" />
+              </ListItem>
+            </Link>
 
             <Divider />
 
-            <ListItem button key="User">
+            <ListItem button key="User" onClick={props.handleUser}>
               <ListItemIcon>
                 <AccountIcon />
               </ListItemIcon>

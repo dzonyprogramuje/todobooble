@@ -5,15 +5,20 @@ import MenuTop from "./components/MenuTop";
 import LoginForm from "./components/LoginForm";
 import Container from "@material-ui/core/Container";
 import CardComponent from "./components/CardComponent";
-
+import CardDoneComponent from "./components/CardDoneComponent";
 import EditTaskComponent from "./components/EditTaskComponent";
+import UserComponent from "./components/UserComponent";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class App extends React.Component {
   state = {
-    username: "",
+    username: "admin",
+    name: "Patryk",
     logged: false,
     newTaskOppened: false,
     editTask: undefined,
+    user: false,
     tasks: [
       // {
       //   id: 0,
@@ -120,43 +125,75 @@ class App extends React.Component {
     });
   };
 
+  handleUser() {
+    this.setState({
+      user: !this.state.user,
+    });
+  }
+
   render() {
     return (
       <>
-        <MenuTop
-          logged={this.state.logged === true ? true : false}
-          handleLogged={this.handleLogged.bind(this)}
-          open={this.state.newTaskOppened}
-          handleNewTask={this.handleNewTask.bind(this)}
-          handleAddNewTask={this.handleAddNewTask.bind(this)}
-          tasks={this.state.tasks}
-        />
+        <Router>
+          <MenuTop
+            logged={this.state.logged === true ? true : false}
+            handleLogged={this.handleLogged.bind(this)}
+            open={this.state.newTaskOppened}
+            handleNewTask={this.handleNewTask.bind(this)}
+            handleAddNewTask={this.handleAddNewTask.bind(this)}
+            tasks={this.state.tasks}
+            name={this.state.name}
+            user={this.state.user}
+            handleUser={this.handleUser.bind(this)}
+          />
 
-        <Container>
-          {this.state.logged === false ? (
-            <LoginForm handleLogged={this.handleLogged.bind(this)} />
-          ) : (
-            <>
-              <CardComponent
-                tasks={this.state.tasks}
-                // handleDeleteTask={(id) => this.handleDeleteTask(id)}
-                handleTaskStatus={(id, kind) => {
-                  this.handleTaskStatus(id, kind);
-                }}
+          <Container>
+            {this.state.logged === false ? (
+              <LoginForm handleLogged={this.handleLogged.bind(this)} />
+            ) : (
+              <>
+                <Switch>
+                  <Route path="/" exact>
+                    <CardComponent
+                      tasks={this.state.tasks}
+                      handleTaskStatus={(id, kind) => {
+                        this.handleTaskStatus(id, kind);
+                      }}
+                    />
+                  </Route>
+                  <Route path="/done">
+                    <CardDoneComponent
+                      tasks={this.state.tasks}
+                      handleTaskStatus={(id, kind) => {
+                        this.handleTaskStatus(id, kind);
+                      }}
+                    />
+                  </Route>
+                </Switch>
+              </>
+            )}
+
+            {this.state.editTask ? (
+              <EditTaskComponent
+                task={this.state.editTask}
+                handleEditTask={this.handleEditTask}
+                handleEditTaskSave={this.handleEditTaskSave.bind(this)}
               />
-            </>
-          )}
+            ) : (
+              <></>
+            )}
 
-          {this.state.editTask ? (
-            <EditTaskComponent
-              task={this.state.editTask}
-              handleEditTask={this.handleEditTask}
-              handleEditTaskSave={this.handleEditTaskSave.bind(this)}
-            />
-          ) : (
-            <></>
-          )}
-        </Container>
+            {this.state.user ? (
+              <UserComponent
+                username={this.state.username}
+                name={this.state.name}
+                handleUser={this.handleUser.bind(this)}
+              />
+            ) : (
+              <></>
+            )}
+          </Container>
+        </Router>
       </>
     );
   }
