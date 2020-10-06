@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -83,6 +84,7 @@ class App extends React.Component {
       done: false,
       liked: false,
       deleted: false,
+      username: this.props.loggedUser,
     };
 
     this.props.handleAddNewTask(newTask);

@@ -11,11 +11,12 @@ import UserComponent from "./components/UserComponent";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
+import axios from "axios";
+
 class App extends React.Component {
   state = {
-    username: "admin",
-    name: "Patryk",
     logged: false,
+    loggedUser: "",
     newTaskOppened: false,
     editTask: undefined,
     user: false,
@@ -59,13 +60,16 @@ class App extends React.Component {
       //   deleted: false,
       // },
     ],
+    tasksMongo: [],
   };
 
-  handleLogged() {
+  handleLoggedUser = (username) => {
     this.setState({
-      logged: !this.state.logged,
+      loggedUser: username,
+      logged: true,
     });
-  }
+    console.log(username);
+  };
 
   handleNewTask = () => {
     this.setState({
@@ -73,12 +77,21 @@ class App extends React.Component {
     });
   };
 
-  handleAddNewTask = (task) => {
-    let table = this.state.tasks;
-    table.push(task);
+  downloadTasks = () => {
+    axios
+      .post(`http://localhost:5000/tasks/all`, {
+        username: this.state.loggedUser,
+      })
+      .then((res) => {
+        this.taskInit(res.data);
+      });
+  };
 
-    this.setState({
-      tasks: table,
+  handleAddNewTask = (newTask) => {
+    let table = this.state.tasks;
+
+    axios.post(`http://localhost:5000/tasks/new`, newTask).then((res) => {
+      this.downloadTasks();
     });
   };
 
@@ -87,7 +100,12 @@ class App extends React.Component {
     const result = this.state.tasks;
 
     if (kind === "delete") {
-      result[id].deleted = !result[id].deleted;
+      // result[id].deleted = !result[id].deleted;
+      axios
+        .post(`http://localhost:5000/tasks/delete`, { id: id })
+        .then((res) => {
+          this.downloadTasks();
+        });
     }
 
     if (kind === "edit") {
@@ -96,12 +114,49 @@ class App extends React.Component {
       });
     }
 
+    // LIKE I DELETE- TRZEBA DOROBIC; NAJLEPIEJ WRZUCIC DO FUNKCJI EDIT
     if (kind === "like") {
-      result[id].liked = !result[id].liked;
+      // result[id].liked = !result[id].liked;
+
+      let tempTask = undefined;
+      this.state.tasks.map((task) => {
+        if (task._id == id) {
+          tempTask = task;
+        }
+      });
+
+      axios
+        .post(`http://localhost:5000/tasks/update`, {
+          _id: tempTask._id,
+          done: tempTask.done,
+          liked: !tempTask.liked,
+          kind: tempTask.kind,
+          description: tempTask.description,
+        })
+        .then((res) => {
+          this.downloadTasks();
+        });
     }
 
     if (kind === "done") {
-      result[id].done = !result[id].done;
+      // result[id].done = !result[id].done;
+      let tempTask = undefined;
+      this.state.tasks.map((task) => {
+        if (task._id == id) {
+          tempTask = task;
+        }
+      });
+
+      axios
+        .post(`http://localhost:5000/tasks/update`, {
+          _id: tempTask._id,
+          done: !tempTask.done,
+          kind: tempTask.kind,
+          description: tempTask.description,
+        })
+        .then((res) => {
+          this.downloadTasks();
+        });
     }
 
     // Aktualizacja state
@@ -116,13 +171,24 @@ class App extends React.Component {
     });
   };
 
+  // Edycja Taska z komponentu EditTaskComponent
   handleEditTaskSave = (task) => {
-    let tempTask = this.state.tasks;
-    tempTask[task.id] = task;
+    // let tempTasks = this.state.tasks;
+    // tempTasks[task.id] = task;
 
-    this.setState({
-      tasks: tempTask,
-    });
+    // this.setState({
+    //   tasks: tempTask,
+    // });
+
+    axios
+      .post(`http://localhost:5000/tasks/update`, {
+        _id: task._id,
+        kind: task.kind,
+        description: task.description,
+      })
+      .then((res) => {
+        this.downloadTasks();
+      });
   };
 
   handleUser() {
@@ -131,25 +197,34 @@ class App extends React.Component {
     });
   }
 
+  taskInit = (tasks) => {
+    this.setState({
+      tasks: tasks,
+    });
+  };
+
   render() {
     return (
       <>
         <Router>
           <MenuTop
             logged={this.state.logged === true ? true : false}
-            handleLogged={this.handleLogged.bind(this)}
+            // handleLogged={this.handleLogged.bind(this)}
+            loggedUser={this.state.loggedUser}
             open={this.state.newTaskOppened}
             handleNewTask={this.handleNewTask.bind(this)}
             handleAddNewTask={this.handleAddNewTask.bind(this)}
             tasks={this.state.tasks}
-            name={this.state.name}
             user={this.state.user}
             handleUser={this.handleUser.bind(this)}
           />
 
           <Container>
             {this.state.logged === false ? (
-              <LoginForm handleLogged={this.handleLogged.bind(this)} />
+              <LoginForm
+                handleLoggedUser={this.handleLoggedUser.bind(this)}
+                downloadTasks={this.downloadTasks}
+              />
             ) : (
               <>
                 <Switch>

@@ -62,7 +62,7 @@ export default function CardDoneComponent(props) {
         if (task.done === true && task.deleted !== true) {
           return (
             <Grid item xs={12} style={{ marginTop: 10 }}>
-              <Card key={`tasks_${id}`}>
+              <Card key={`task_${id}`}>
                 <CardHeader
                   avatar={<Avatar src="/broken-image.jpg" />}
                   action={
@@ -90,7 +90,7 @@ export default function CardDoneComponent(props) {
                 <CardActions disableSpacing>
                   <IconButton
                     aria-label="add to favorites"
-                    id={id}
+                    id={task._id}
                     onClick={(e, kind) => {
                       handleTaskIcons(e, "like");
                     }}
@@ -99,7 +99,7 @@ export default function CardDoneComponent(props) {
                   </IconButton>
                   <IconButton
                     aria-label="done"
-                    id={id}
+                    id={task._id}
                     onClick={(e, kind) => {
                       handleTaskIcons(e, "done");
                     }}

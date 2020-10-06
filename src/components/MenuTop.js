@@ -77,7 +77,7 @@ function MenuTop(props) {
           )}
           <Typography variant="h6" color="inherit">
             {props.logged === true ? (
-              <>Witaj, {props.name} </>
+              <>Witaj, {props.loggedUser} </>
             ) : (
               <>Zaloguj sie</>
             )}
@@ -149,6 +149,7 @@ function MenuTop(props) {
         handleNewTask={props.handleNewTask}
         handleAddNewTask={props.handleAddNewTask}
         tasks={props.tasks}
+        loggedUser={props.loggedUser}
       />
     </div>
   );

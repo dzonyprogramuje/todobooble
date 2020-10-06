@@ -15,6 +15,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import Grid from "@material-ui/core/Grid";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,7 +63,7 @@ export default function CardComponent(props) {
         if (task.deleted !== true && task.done !== true) {
           return (
             <Grid item xs={12} style={{ marginTop: 10 }}>
-              <Card key={`tasks_${id}`}>
+              <Card key={`task_${id}`}>
                 <CardHeader
                   avatar={<Avatar src="/broken-image.jpg" />}
                   action={
@@ -90,7 +91,7 @@ export default function CardComponent(props) {
                 <CardActions disableSpacing>
                   <IconButton
                     aria-label="add to favorites"
-                    id={id}
+                    id={task._id}
                     onClick={(e, kind) => {
                       handleTaskIcons(e, "like");
                     }}
@@ -99,7 +100,7 @@ export default function CardComponent(props) {
                   </IconButton>
                   <IconButton
                     aria-label="done"
-                    id={id}
+                    id={task._id}
                     onClick={(e, kind) => {
                       handleTaskIcons(e, "done");
                     }}

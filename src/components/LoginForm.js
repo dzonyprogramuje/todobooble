@@ -1,5 +1,5 @@
 import React from "react";
-
+import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -15,6 +15,17 @@ class LoginForm extends React.Component {
     registerErrors: [],
     passwordDB: "root",
   };
+  // Przerobic te dwie funkcje na jedna uniwersalna
+  handleUsername = (e) => {
+    this.setState({
+      username: e.target.value,
+    });
+  };
+  handlePassword = (e) => {
+    this.setState({
+      password: e.target.value,
+    });
+  };
 
   onHandleRegister() {
     this.setState({
@@ -23,7 +34,19 @@ class LoginForm extends React.Component {
   }
 
   handleLoginCheck = () => {
-    this.props.handleLogged();
+    // Sprawdzenie po stronie serwera czy login pasusuje z haslem i puscic dalej
+    axios
+      .post(`http://localhost:5000/users/check`, {
+        username: this.state.username,
+        password: this.state.password,
+      })
+      .then((res) => {
+        if (res.data === "ok") {
+          this.props.handleLoggedUser(this.state.username);
+
+          this.props.downloadTasks();
+        }
+      });
   };
 
   render() {
@@ -33,7 +56,13 @@ class LoginForm extends React.Component {
           <form margin={"normal"} noValidate autoComplete="off">
             <Grid container spacing={2} style={{ marginTop: 10 }}>
               <Grid item xs={12}>
-                <TextField autoFocus id="login" label="Nazwa uzytkownika" />
+                <TextField
+                  autoFocus
+                  id="login"
+                  label="Nazwa uzytkownika"
+                  onChange={this.handleUsername}
+                  value={this.state.username}
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -41,6 +70,8 @@ class LoginForm extends React.Component {
                   label="Haslo"
                   type="password"
                   autoComplete="current-password"
+                  onChange={this.handlePassword}
+                  value={this.state.password}
                 />
               </Grid>
 

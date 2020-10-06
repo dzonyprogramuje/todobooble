@@ -28,6 +28,7 @@ class EditTaskComponent extends React.Component {
   //  { open } = this.props;
 
   state = {
+    _id: undefined,
     id: undefined,
     kind: "",
     description: "",
@@ -40,6 +41,7 @@ class EditTaskComponent extends React.Component {
   componentDidMount() {
     if (this.props.task) {
       this.setState({
+        _id: this.props.task._id,
         id: this.props.task.id,
         kind: this.props.task.kind,
         description: this.props.task.description,
@@ -90,6 +92,7 @@ class EditTaskComponent extends React.Component {
     const time = `${day}.${month}.${year} | ${hour}:${minutes}:${seconds}`;
 
     const newTask = {
+      _id: this.state._id,
       id: this.state.id,
       kind: this.state.kind,
       description: this.state.description,
@@ -114,7 +117,7 @@ class EditTaskComponent extends React.Component {
           aria-labelledby="simple-dialog-title"
           open={this.props.task}
         >
-          <DialogTitle id="simple-dialog-title">Edycja</DialogTitle>
+          <DialogTitle id="simple-dialog-title"></DialogTitle>
 
           <form noValidate autoComplete="off">
             <List>
