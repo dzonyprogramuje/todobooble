@@ -67,7 +67,7 @@ export default function CardComponent(props) {
                 <CardHeader
                   avatar={<Avatar src="/broken-image.jpg" />}
                   action={
-                    <IconButton id={id} onClick={handleClick}>
+                    <IconButton id={task._id} onClick={handleClick}>
                       <MoreVertIcon />
                     </IconButton>
                   }
@@ -118,7 +118,7 @@ export default function CardComponent(props) {
                 onClose={handleClose}
               >
                 <MenuItem
-                  id={id}
+                  id={task._id}
                   onClick={(kind) => {
                     handleMiniMenu("edit");
                   }}
@@ -126,7 +126,7 @@ export default function CardComponent(props) {
                   Edytuj
                 </MenuItem>
                 <MenuItem
-                  id={id}
+                  id={task._id}
                   onClick={(kind) => {
                     handleMiniMenu("delete");
                   }}

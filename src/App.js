@@ -99,31 +99,40 @@ class App extends React.Component {
 
   handleTaskStatus(id, kind) {
     // Przypisz do zmiennej poprzedniego state.task
-    const result = this.state.tasks;
+    // const result = this.state.tasks;
+
+    let tempTask = undefined;
+    this.state.tasks.map((task) => {
+      if (task._id == id) {
+        tempTask = task;
+      }
+    });
 
     if (kind === "delete") {
+      console.log(id);
       // result[id].deleted = !result[id].deleted;
-      axios.post(`${adress}/tasks/delete`, { id: id }).then((res) => {
+      axios.post(`${adress}/tasks/delete`, { _id: id }).then((res) => {
         this.downloadTasks();
       });
     }
 
+    //Trzeva na podstawie _id zrobic id
     if (kind === "edit") {
-      this.setState({
-        editTask: this.state.tasks[id],
-      });
-    }
-
-    // LIKE I DELETE- TRZEBA DOROBIC; NAJLEPIEJ WRZUCIC DO FUNKCJI EDIT
-    if (kind === "like") {
-      // result[id].liked = !result[id].liked;
-
       let tempTask = undefined;
       this.state.tasks.map((task) => {
         if (task._id == id) {
           tempTask = task;
         }
       });
+
+      this.setState({
+        editTask: tempTask,
+      });
+    }
+
+    // LIKE I DELETE- TRZEBA DOROBIC; NAJLEPIEJ WRZUCIC DO FUNKCJI EDIT
+    if (kind === "like") {
+      // result[id].liked = !result[id].liked;
 
       axios
         .post(`${adress}/tasks/update`, {
@@ -140,12 +149,6 @@ class App extends React.Component {
 
     if (kind === "done") {
       // result[id].done = !result[id].done;
-      let tempTask = undefined;
-      this.state.tasks.map((task) => {
-        if (task._id == id) {
-          tempTask = task;
-        }
-      });
 
       axios
         .post(`${adress}/tasks/update`, {
@@ -153,6 +156,7 @@ class App extends React.Component {
           done: !tempTask.done,
           kind: tempTask.kind,
           description: tempTask.description,
+          liked: tempTask.liked,
         })
         .then((res) => {
           this.downloadTasks();
@@ -160,9 +164,9 @@ class App extends React.Component {
     }
 
     // Aktualizacja state
-    this.setState({
-      tasks: result,
-    });
+    // this.setState({
+    //   tasks: result,
+    // });
   }
 
   handleEditTask = () => {
