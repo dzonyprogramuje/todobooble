@@ -36,7 +36,7 @@ class LoginForm extends React.Component {
   handleLoginCheck = () => {
     // Sprawdzenie po stronie serwera czy login pasusuje z haslem i puscic dalej
     axios
-      .post(`http://localhost:5000/users/check`, {
+      .post(`${this.props.adress}/users/check`, {
         username: this.state.username,
         password: this.state.password,
       })

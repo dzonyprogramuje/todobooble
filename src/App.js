@@ -13,6 +13,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import axios from "axios";
 
+const adress = "http://localhost:5000";
+
 class App extends React.Component {
   state = {
     logged: false,
@@ -79,7 +81,7 @@ class App extends React.Component {
 
   downloadTasks = () => {
     axios
-      .post(`http://localhost:5000/tasks/all`, {
+      .post(`${adress}/tasks/all`, {
         username: this.state.loggedUser,
       })
       .then((res) => {
@@ -90,7 +92,7 @@ class App extends React.Component {
   handleAddNewTask = (newTask) => {
     let table = this.state.tasks;
 
-    axios.post(`http://localhost:5000/tasks/new`, newTask).then((res) => {
+    axios.post(`${adress}/tasks/new`, newTask).then((res) => {
       this.downloadTasks();
     });
   };
@@ -101,11 +103,9 @@ class App extends React.Component {
 
     if (kind === "delete") {
       // result[id].deleted = !result[id].deleted;
-      axios
-        .post(`http://localhost:5000/tasks/delete`, { id: id })
-        .then((res) => {
-          this.downloadTasks();
-        });
+      axios.post(`${adress}/tasks/delete`, { id: id }).then((res) => {
+        this.downloadTasks();
+      });
     }
 
     if (kind === "edit") {
@@ -126,7 +126,7 @@ class App extends React.Component {
       });
 
       axios
-        .post(`http://localhost:5000/tasks/update`, {
+        .post(`${adress}/tasks/update`, {
           _id: tempTask._id,
           done: tempTask.done,
           liked: !tempTask.liked,
@@ -148,7 +148,7 @@ class App extends React.Component {
       });
 
       axios
-        .post(`http://localhost:5000/tasks/update`, {
+        .post(`${adress}/tasks/update`, {
           _id: tempTask._id,
           done: !tempTask.done,
           kind: tempTask.kind,
@@ -181,10 +181,12 @@ class App extends React.Component {
     // });
 
     axios
-      .post(`http://localhost:5000/tasks/update`, {
+      .post(`${adress}/tasks/update`, {
         _id: task._id,
         kind: task.kind,
         description: task.description,
+        done: task.done,
+        liked: task.liked,
       })
       .then((res) => {
         this.downloadTasks();
@@ -224,6 +226,7 @@ class App extends React.Component {
               <LoginForm
                 handleLoggedUser={this.handleLoggedUser.bind(this)}
                 downloadTasks={this.downloadTasks}
+                adress={adress}
               />
             ) : (
               <>

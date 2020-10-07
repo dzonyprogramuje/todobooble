@@ -28,7 +28,6 @@ class EditTaskComponent extends React.Component {
   //  { open } = this.props;
 
   state = {
-    _id: undefined,
     id: undefined,
     kind: "",
     description: "",
@@ -117,7 +116,7 @@ class EditTaskComponent extends React.Component {
           aria-labelledby="simple-dialog-title"
           open={this.props.task}
         >
-          <DialogTitle id="simple-dialog-title"></DialogTitle>
+          <DialogTitle id="simple-dialog-title">Edycja</DialogTitle>
 
           <form noValidate autoComplete="off">
             <List>

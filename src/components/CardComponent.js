@@ -63,7 +63,7 @@ export default function CardComponent(props) {
         if (task.deleted !== true && task.done !== true) {
           return (
             <Grid item xs={12} style={{ marginTop: 10 }}>
-              <Card key={`task_${id}`}>
+              <Card key={`tasks_${id}`}>
                 <CardHeader
                   avatar={<Avatar src="/broken-image.jpg" />}
                   action={
