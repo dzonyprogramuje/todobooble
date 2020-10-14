@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import Grid from "@material-ui/core/Grid";
 
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
@@ -12,8 +13,15 @@ import DialogActions from "@material-ui/core/DialogActions";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Typography from "@material-ui/core/Typography";
 import DraftsIcon from "@material-ui/icons/Drafts";
-import SendIcon from "@material-ui/icons/Send";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
+
+
+import KeyIcon from '@material-ui/icons/VpnKey';
+import FaceIcon from '@material-ui/icons/Face';
+import TextIcon from '@material-ui/icons/TextFields';
+
+import DayIcon from '@material-ui/icons/WbSunny';
+import NightIcon from '@material-ui/icons/Brightness2';
 
 // const useStyles = makeStyles({
 //   avatar: {
@@ -44,30 +52,30 @@ class UserComponent extends React.Component {
           aria-labelledby="simple-dialog-title"
           open={true}
         >
-          <DialogTitle id="simple-dialog-title">Panel uzytkownika</DialogTitle>
+          <DialogTitle id="simple-dialog-title">Panel uzytkownika <b>IN PROGRESS</b></DialogTitle>
 
           <form noValidate autoComplete="off">
-            <List>
-              <ListItem>
-                <TextField
+            <List>  
+             <ListItem>
+
+              <TextField
+              color={"secondary"}
                   id="standard-full-width"
-                  label="Nazwa uzytkownika"
-                  placeholder="Podaj nazwe uzytkownika"
+                  label="Twoja nazwa uzytkownika"
+                  placeholder="Twoja nazwa uzytkownika"
                   disabled
                   value={this.props.username}
-                  // onChange={(e) => {
-                  //   this.handleTask(e, "description");
-                  // }}
                   fullWidth
                   margin="normal"
                   InputLabelProps={{
                     shrink: true,
                   }}
-                />
-              </ListItem>
+                />                   
 
+              </ListItem>
               <ListItem>
                 <TextField
+                color={"secondary"}
                   id="standard-full-width"
                   label="Imie"
                   placeholder="Twoje imie"
@@ -85,6 +93,7 @@ class UserComponent extends React.Component {
 
               <ListItem>
                 <TextField
+                color={"secondary"}
                   id="standard-select-currency"
                   select
                   // label={}
@@ -92,33 +101,31 @@ class UserComponent extends React.Component {
                   // onChange={(e) => {
                   //   this.handleTask(e, "kind");
                   // }}
-                  helperText="Jeszcze nie wiem, moze fonts albo motyw"
+                  helperText="Wybierz motyw kolorow"
                 >
                   <MenuItem key="option_rozrywka" value="Rozrywka">
                     <ListItemIcon>
-                      <SendIcon fontSize="small" />
+                      <NightIcon fontSize="small" />
                     </ListItemIcon>
-                    <Typography variant="inherit">A short message</Typography>
+                    <Typography variant="inherit">Noc</Typography>
                   </MenuItem>
                   <MenuItem key="option_praca" value="Praca">
-                    1
+                  <ListItemIcon>
+                      <DayIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Typography variant="inherit">Dzien</Typography>
                   </MenuItem>
-                  <MenuItem key="option_sport" value="Sport">
-                    2
-                  </MenuItem>
-                  <MenuItem key="option_prywatne" value="Prywatne">
-                    3
-                  </MenuItem>
+
                 </TextField>
               </ListItem>
             </List>
           </form>
 
           <DialogActions>
-            <Button onClick={this.props.handleUser} color="primary">
+            <Button onClick={this.props.handleUser} color="secondary">
               Anuluj
             </Button>
-            <Button onClick="{this.handleEditTaskSave}" color="primary">
+            <Button onClick="{this.handleEditTaskSave}" color="secondary">
               Zapisz
             </Button>
           </DialogActions>
@@ -129,3 +136,6 @@ class UserComponent extends React.Component {
 }
 
 export default UserComponent;
+
+
+

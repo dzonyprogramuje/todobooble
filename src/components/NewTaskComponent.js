@@ -33,11 +33,18 @@ class App extends React.Component {
   };
 
   handleNewTaskForm = (e, key) => {
-    this.setState({
-      // newTaskFormText: e.target.value,
-      // [kind]: e.target.value,
-      [key]: e.target.value,
-    });
+if(key === "description" && this.state.description.length < 155){
+  this.setState({
+    description: e.target.value,
+  });
+} else if(key === "kind" ){
+  this.setState({
+    kind: e.target.value,
+  });
+}
+     
+
+    
   };
 
   handleNewTaskPrepare = () => {
@@ -113,6 +120,7 @@ class App extends React.Component {
                 <TextField
                   id="standard-select-currency"
                   select
+                  color={"secondary"}
                   label="Kategoria"
                   value={this.state.kind}
                   onChange={(e) => {
@@ -139,6 +147,7 @@ class App extends React.Component {
                 <TextField
                   id="standard-full-width"
                   label="Tresc"
+                  color={"secondary"}
                   placeholder="Wprowadz tresc taska"
                   value={this.state.description}
                   onChange={(e) => {
@@ -155,10 +164,18 @@ class App extends React.Component {
           </form>
 
           <DialogActions>
-            <Button onClick={this.props.handleNewTask} color="primary">
+            <Button
+              onClick={this.props.handleNewTask}
+              color="secondary"
+              variant="outlined"
+            >
               Anuluj
             </Button>
-            <Button onClick={this.handleNewTaskPrepare} color="primary">
+            <Button
+              onClick={this.handleNewTaskPrepare}
+              color="secondary"
+              variant="outlined"
+            >
               Zapisz
             </Button>
           </DialogActions>

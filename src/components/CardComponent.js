@@ -58,12 +58,20 @@ export default function CardComponent(props) {
   const tasks = props.tasks;
 
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={2} style={{ marginTop: 18 }}>
       {tasks.map((task, id) => {
         if (task.deleted !== true && task.done !== true) {
           return (
-            <Grid item xs={12} style={{ marginTop: 10 }}>
-              <Card key={`tasks_${id}`}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={6}
+              lg={4}
+              xl={4}
+              
+            >
+              <Card style={{ height: "100%" }} key={`tasks_${id}`}>
                 <CardHeader
                   avatar={<Avatar src="/broken-image.jpg" />}
                   action={
@@ -72,15 +80,16 @@ export default function CardComponent(props) {
                     </IconButton>
                   }
                   title={task.kind}
-                  subheader={task.date}
+                  subheader={"Dodano: " + task.date}
                 />
-                <CardMedia
+                {/* <CardMedia
                   className={classes.media}
                   image="/static/images/cards/paella.jpg"
                   title="Paella dish"
-                />
+                /> */}
                 <CardContent>
                   <Typography
+                  
                     variant="body2"
                     color="textSecondary"
                     component="p"
@@ -88,7 +97,7 @@ export default function CardComponent(props) {
                     {task.description}
                   </Typography>
                 </CardContent>
-                <CardActions disableSpacing>
+                <CardActions disableSpacing flex md={0}>
                   <IconButton
                     aria-label="add to favorites"
                     id={task._id}

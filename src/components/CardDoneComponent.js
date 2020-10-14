@@ -57,7 +57,7 @@ export default function CardDoneComponent(props) {
   const tasks = props.tasks;
 
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={2} style={{ marginTop: 18 }}>
       {tasks.map((task, id) => {
         if (task.done === true && task.deleted !== true) {
           return (

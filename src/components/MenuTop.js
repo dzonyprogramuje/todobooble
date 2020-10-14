@@ -14,14 +14,19 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
+import Box from '@material-ui/core/Box';
 
 import ListIcon from "@material-ui/icons/TodayOutlined";
 import AddIcon from "@material-ui/icons/AddBoxOutlined";
 import AccountIcon from "@material-ui/icons/AccountCircleOutlined";
 import LogoutIcon from "@material-ui/icons/LockOutlined";
 import DoneIcon from "@material-ui/icons/AssignmentTurnedIn";
+import NewsIcon from "@material-ui/icons/Receipt";
+import Button from '@material-ui/core/Button';
 
 import NewTaskComponent from "./NewTaskComponent";
+import WeatherComponent from "./WeatherComponent";
+import ExchangeRateComponent from "./ExchangeRateComponent";
 
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
@@ -34,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     width: 280,
+  },
+  title: {
+    flexGrow: 1,
   },
   fullList: {
     width: "auto",
@@ -72,16 +80,33 @@ function MenuTop(props) {
             >
               <MenuIcon />
             </IconButton>
+            
           ) : (
             <></>
           )}
-          <Typography variant="h6" color="inherit">
+          
             {props.logged === true ? (
-              <>Witaj, {props.loggedUser} </>
+               <>
+               <Box flexGrow={1} display={{ xs: 'none', sm: 'flex' }}>
+              <Typography variant="overline" fontWeight={300} color="inherit" className={classes.title}>
+             Witaj, {props.loggedUser} 
+              </Typography>
+              </Box>
+              <Box display="flex" flexGrow={1} justifyContent="flex-end">
+              <ExchangeRateComponent pln={props.pln} usd={props.usd} />
+              <WeatherComponent weather={props.weather} />
+              </Box>
+              </>
             ) : (
-              <>Zaloguj sie</>
+              <>
+              <Typography variant="overline" fontWeight={300} color="inherit" className={classes.title}>
+              
+              Zaloguj sie
+              </Typography>
+              </>
             )}
-          </Typography>
+          
+         
         </Toolbar>
       </AppBar>
 
@@ -106,25 +131,28 @@ function MenuTop(props) {
               <ListItemText primary="Nowe zadanie" />
             </ListItem>
 
-            <Link to="/">
-              <ListItem button key="Tasks">
-                <ListItemIcon>
-                  <ListIcon />
-                </ListItemIcon>
-                <ListItemText primary="Moje zadania" />
-              </ListItem>
-            </Link>
+            <ListItem button key="Tasks" to="/" component={Link}>
+              <ListItemIcon>
+                <ListIcon />
+              </ListItemIcon>
+              <ListItemText color="secondary" primary="Moje zadania" />
+            </ListItem>
 
-            <Link to="/done">
-              <ListItem button key="Done">
-                <ListItemIcon>
-                  <DoneIcon />
-                </ListItemIcon>
-                <ListItemText primary="Ukonczone zadania" />
-              </ListItem>
-            </Link>
+            <ListItem button key="Done" to="/done" component={Link}>
+              <ListItemIcon>
+                <DoneIcon />
+              </ListItemIcon>
+              <ListItemText primary="Ukonczone zadania" />
+            </ListItem>
 
             <Divider />
+
+            <ListItem button key="User" to="/news" component={Link} onClick={props.news} >
+              <ListItemIcon>
+                <NewsIcon />
+              </ListItemIcon>
+              <ListItemText primary="News" />
+            </ListItem>
 
             <ListItem button key="User" onClick={props.handleUser}>
               <ListItemIcon>
@@ -140,7 +168,7 @@ function MenuTop(props) {
               <ListItemText primary="Wyloguj" />
             </ListItem>
           </List>
-          ;
+          
         </div>
       </Drawer>
       {/* close={closeDialog} state={state}  */}
