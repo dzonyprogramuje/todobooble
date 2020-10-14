@@ -69,8 +69,6 @@ class App extends React.Component {
     
     weather : {
       coord: {
-        // lat: 51.1494,
-        // lon: 15.0084,
         lat: 25.066668,
         lon: 34.900002,
       },
