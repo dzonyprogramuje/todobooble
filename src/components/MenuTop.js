@@ -80,33 +80,33 @@ function MenuTop(props) {
             >
               <MenuIcon />
             </IconButton>
-            
+
           ) : (
-            <></>
-          )}
-          
-            {props.logged === true ? (
-               <>
-               <Box flexGrow={1} display={{ xs: 'none', sm: 'flex' }}>
-              <Typography variant="overline" fontWeight={300} color="inherit" className={classes.title}>
-             Witaj, {props.loggedUser} 
-              </Typography>
+              <></>
+            )}
+
+          {props.logged === true ? (
+            <>
+              <Box flexGrow={1} display={{ xs: 'none', sm: 'flex' }}>
+                <Typography variant="overline" fontWeight={300} color="inherit" className={classes.title}>
+                  Witaj, {props.loggedUser}
+                </Typography>
               </Box>
               <Box display="flex" flexGrow={1} justifyContent="flex-end">
-              <ExchangeRateComponent pln={props.pln} usd={props.usd} />
-              <WeatherComponent weather={props.weather} />
+                <ExchangeRateComponent pln={props.pln} usd={props.usd} />
+                <WeatherComponent weather={props.weather} />
               </Box>
-              </>
-            ) : (
+            </>
+          ) : (
               <>
-              <Typography variant="overline" fontWeight={300} color="inherit" className={classes.title}>
-              
-              Zaloguj sie
+                <Typography variant="overline" fontWeight={300} color="inherit" className={classes.title}>
+
+                  Zaloguj sie
               </Typography>
               </>
             )}
-          
-         
+
+
         </Toolbar>
       </AppBar>
 
@@ -168,7 +168,7 @@ function MenuTop(props) {
               <ListItemText primary="Wyloguj" />
             </ListItem>
           </List>
-          
+
         </div>
       </Drawer>
       {/* close={closeDialog} state={state}  */}

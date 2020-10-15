@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Link from '@material-ui/core/Link';
 
 class LoginForm extends React.Component {
   state = {
@@ -113,7 +114,7 @@ class LoginForm extends React.Component {
                 <TextField
                   autoFocus
                   fullWidth
-                  color="secondary"
+
                   id="login"
                   label="Nazwa uzytkownika"
                   onChange={this.handleUsername}
@@ -123,7 +124,7 @@ class LoginForm extends React.Component {
               <Grid item xs={12} sm={6} md={4}>
                 <TextField
                   fullWidth
-                  color="secondary"
+
                   id="password"
                   label="Haslo"
                   type="password"
@@ -134,21 +135,20 @@ class LoginForm extends React.Component {
               </Grid>
 
               <Grid item xs={12} sm={6} md={4}>
-                <Typography
+                <Link
+                  component='button'
                   color="inherit"
                   variant="subtitle2"
                   display="block"
-                  gutterBottom
                   onClick={() => this.onHandleRegister()}
                 >
                   Nie masz jeszcze konta?
-                </Typography>
+                </Link>
               </Grid>
 
               <Grid item xs={12} sm={6} md={4}>
                 <Button
-                  variant="contained"
-                  color="secondary"
+                  color='primary'
                   variant="outlined"
                   //   onClick={() => this.props.handleLogged()}
                   onClick={this.handleLoginCheck}
@@ -159,75 +159,75 @@ class LoginForm extends React.Component {
             </Grid>
           </form>
         ) : (
-          <form margin={"normal"} noValidate autoComplete="off">
-            <Grid
-              container
-              direction="column"
-              spacing={2}
-              style={{ marginTop: 10 }}
-            >
-              <Grid item xs={12} sm={6} md={4}>
-                <TextField
-                  autoFocus
-                  fullWidth
-                  color="secondary"
-                  id="login"
-                  label="Nazwa uzytkownika"
-                  onChange={this.handleUsername}
-                  value={this.state.username}
-                />
-              </Grid>
+            <form margin={"normal"} noValidate autoComplete="off">
+              <Grid
+                container
+                direction="column"
+                spacing={2}
+                style={{ marginTop: 10 }}
+              >
+                <Grid item xs={12} sm={6} md={4}>
+                  <TextField
+                    autoFocus
+                    fullWidth
 
-              <Grid item xs={12} sm={6} md={4}>
-                <TextField
-                  fullWidth
-                  color="secondary"
-                  id="password"
-                  label="Haslo"
-                  type="password"
-                  autoComplete="current-password"
-                  onChange={this.handlePassword}
-                  value={this.state.password}
-                />
-              </Grid>
+                    id="login"
+                    label="Nazwa uzytkownika"
+                    onChange={this.handleUsername}
+                    value={this.state.username}
+                  />
+                </Grid>
 
-              <Grid item xs={12} sm={6} md={4}>
-                <TextField
-                  fullWidth
-                  color="secondary"
-                  id="password_2"
-                  label="Powtorz haslo"
-                  type="password"
-                  autoComplete="current-password"
-                  onChange={this.handlePassword2}
-                  value={this.state.password2}
-                />
-              </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <TextField
+                    fullWidth
 
-              <Grid item xs={12} sm={6} md={4}>
-                <Typography
-                  color="inherit"
-                  variant="subtitle2"
-                  display="block"
-                  gutterBottom
-                  onClick={() => this.onHandleRegister()}
-                >
-                  Posiadasz juz konto?
-                </Typography>
-              </Grid>
+                    id="password"
+                    label="Haslo"
+                    type="password"
+                    autoComplete="current-password"
+                    onChange={this.handlePassword}
+                    value={this.state.password}
+                  />
+                </Grid>
 
-              <Grid item xs={12} sm={6} md={4}>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={this.newAccount}
-                >
-                  Zarejestruj sie
+                <Grid item xs={12} sm={6} md={4}>
+                  <TextField
+                    fullWidth
+
+                    id="password_2"
+                    label="Powtorz haslo"
+                    type="password"
+                    autoComplete="current-password"
+                    onChange={this.handlePassword2}
+                    value={this.state.password2}
+                  />
+                </Grid>
+
+                <Grid item xs={12} sm={6} md={4}>
+                  <Link
+                    component='button'
+                    color="inherit"
+                    variant="subtitle2"
+                    display="block"
+                    onClick={() => this.onHandleRegister()}
+                  >
+                    Posiadasz juz konto?
+                </Link>
+                </Grid>
+
+                <Grid item xs={12} sm={6} md={4}>
+                  <Button
+                    variant="outlined"
+                    color='primary'
+                    onClick={this.newAccount}
+                  >
+                    Zarejestruj sie
                 </Button>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
-        )}
+            </form>
+          )}
       </>
     );
   }

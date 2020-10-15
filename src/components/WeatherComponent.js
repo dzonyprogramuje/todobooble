@@ -44,82 +44,78 @@ export default function WeatherComponent(props) {
 
   const classes = useStyles();
 
-  if(props.weather.icon == "01d"){
+  if (props.weather.icon == "01d") {
     icon = weather_01d;
   };
 
-  if(props.weather.icon == "01n"){
+  if (props.weather.icon == "01n") {
     icon = weather_01n;
   };
-  if(props.weather.icon == "02d"){
+  if (props.weather.icon == "02d") {
     icon = weather_02d;
   };
-  if(props.weather.icon == "02n"){
+  if (props.weather.icon == "02n") {
     icon = weather_02n;
   };
 
-  if(props.weather.icon == "03d"){
+  if (props.weather.icon == "03d") {
     icon = weather_03d;
   };
-  if(props.weather.icon == "03n"){
+  if (props.weather.icon == "03n") {
     icon = weather_03n;
   }
 
-  if(props.weather.icon == "04d"){
+  if (props.weather.icon == "04d") {
     icon = weather_04d;
   };
-  if(props.weather.icon == "04n"){
+  if (props.weather.icon == "04n") {
     icon = weather_04n;
   }
 
-  if(props.weather.icon == "50d"){
+  if (props.weather.icon == "50d") {
     icon = weather_50d;
   };
-  if(props.weather.icon == "50n"){
+  if (props.weather.icon == "50n") {
     icon = weather_50n;
   }
 
-  if(props.weather.icon == "09d"){
+  if (props.weather.icon == "09d") {
     icon = weather_09d;
   };
-  if(props.weather.icon == "09n"){
+  if (props.weather.icon == "09n") {
     icon = weather_09n;
   }
 
-  if(props.weather.icon == "10d"){
+  if (props.weather.icon == "10d") {
     icon = weather_10d;
   };
-  if(props.weather.icon == "10n"){
+  if (props.weather.icon == "10n") {
     icon = weather_10n;
   }
 
-  if(props.weather.icon == "11d"){
+  if (props.weather.icon == "11d") {
     icon = weather_11d;
   };
-  if(props.weather.icon == "11n"){
+  if (props.weather.icon == "11n") {
     icon = weather_11n;
   }
 
-  if(props.weather.icon == "unknown"){
+  if (props.weather.icon == "unknown") {
     icon = weather_unknown;
   };
 
-
-  
-
   return (
-    
-        <>
-        <Box display="flex" mr={3}>
-        <Typography variant="overline" fontWeight={300}>
-        {props.weather.name}: <b>{Math.round(props.weather.main.temp*10)/10}°</b>
-        </Typography>
-        </Box>
-        <Box display="flex" alignItems="center">
-        <img src={icon} height="30"/>
-        </Box>
 
-    
-     </>
+    <>
+      <Box display="flex" mr={3}>
+        <Typography variant="overline" fontWeight={300}>
+          {props.weather.name}: <b>{Math.round(props.weather.main.temp * 10) / 10}°</b>
+        </Typography>
+      </Box>
+      <Box display="flex" alignItems="center">
+        <img src={icon} height="30" />
+      </Box>
+
+    </>
   );
 }

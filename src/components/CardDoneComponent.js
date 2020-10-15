@@ -81,7 +81,7 @@ export default function CardDoneComponent(props) {
                 <CardContent>
                   <Typography
                     variant="body2"
-                    color="textSecondary"
+                    color="textPrimary"
                     component="p"
                   >
                     {task.description}
@@ -95,7 +95,7 @@ export default function CardDoneComponent(props) {
                       handleTaskIcons(e, "like");
                     }}
                   >
-                    <FavoriteIcon color={task.liked ? "secondary" : ""} />
+                    <FavoriteIcon color={task.liked ? "primary" : ""} />
                   </IconButton>
                   <IconButton
                     aria-label="done"

@@ -22,35 +22,47 @@ const adress = "https://todohure.herokuapp.com";
 // const adress = "http://localhost:5000";
 // const keyNews = "5d3d946c272a4416a11bbbb8a6d0a04b";
 // const adressNews = `https://newsapi.org/v2/top-headlines?country=pl&category=business&apiKey=${keyNews}`;
-const lat =51.1496361;
-const lon =15.0065645;
+const lat = 51.1496361;
+const lon = 15.0065645;
 const adressNews = "https://saurav.tech/NewsAPI/top-headlines/category/health/in.json";
-const keyWeather="fe08ab0fa4e3a3f3b01650df3e38b7d0";
-const adressWeather =`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${keyWeather}&units=metric`;
+const keyWeather = "fe08ab0fa4e3a3f3b01650df3e38b7d0";
+const adressWeather = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${keyWeather}&units=metric`;
 
 const adressExchangeRate_PLN = `https://api.exchangeratesapi.io/latest?symbols=PLN`;
 const adressExchangeRate_USD = `https://api.exchangeratesapi.io/latest?base=USD&symbols=PLN`;
 
-const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-    primary: {
-      light: "#bc477b",
-      main: "#880e4f",
-      dark: "#560027",
-      contrastText: "#fff",
-    },
-    secondary: {
-      light: "#b2fef7",
-      main: "#80cbc4",
-      dark: "#4f9a94",
-      contrastText: "#000",
-    },
-  },
-});
+// let theme = createMuiTheme({
+//   palette: {
+//     type: 'dark',
+//     primary: {
+//       light: "#bc477b",
+//       main: "#424242",
+//       dark: "#560027",
+//       contrastText: "#fff",
+//     },
+//     secondary: {
+//       light: "#b2fef7",
+//       main: "#80cbc4",
+//       dark: "#4f9a94",
+//       contrastText: "#000",
+//     },
+//   },
+// });
+
+// const palletteSwitch = (value) => {
+//   console.log(value);
+
+//   theme = createMuiTheme({
+//     type: value
+//   });
+
+// }
+
 
 class App extends React.Component {
+
   state = {
+    palette: 'light',
     logged: false,
     loggedUser: "",
     newTaskOppened: false,
@@ -66,8 +78,8 @@ class App extends React.Component {
       PLN: "",
       USD: "",
     },
-    
-    weather : {
+
+    weather: {
       coord: {
         lat: 25.066668,
         lon: 34.900002,
@@ -84,6 +96,75 @@ class App extends React.Component {
     }
   };
 
+  theme = createMuiTheme({
+    palette: {
+      type: 'light',
+      primary: {
+        main: '#3d00e0',
+      },
+      secondary: {
+        main: '#ad2f5a',
+      },
+    },
+  });
+
+  // theme = createMuiTheme({
+  //   palette: {
+  //     type: this.state.palette,
+  //     primary: {
+  //       light: "#bc477b",
+  //       main: "#424242",
+  //       dark: "#e1f5fe",
+  //       contrastText: "#fff",
+  //     },
+  //     secondary: {
+  //       light: "#b2fef7",
+  //       main: "#80cbc4",
+  //       dark: "#e1f5fe",
+  //       contrastText: "#000",
+  //     },
+  //   },
+  // });
+
+  paletteSwitch = (value) => {
+    console.log(value);
+
+    this.setState({
+      palette: value,
+    });
+
+    if (value === 'dark') {
+      this.theme = createMuiTheme({
+        palette: {
+          type: 'dark',
+          primary: {
+            main: '#7e3ff2',
+          },
+          secondary: {
+            main: '#e6498e',
+          }
+        }
+      });
+    } else {
+      this.theme = createMuiTheme({
+        palette: {
+          type: 'light',
+          primary: {
+            main: '#3d00e0',
+          },
+          secondary: {
+            main: '#ad2f5a',
+          },
+          text: {
+            primary: 'rgba(0, 0, 0, 0.87)',
+            secondary: 'rgba(0, 0, 0, 0.75)',
+            disabled: 'rgba(0,0,0, 0.6)'
+          }
+        }
+      });
+    }
+  }
+
   apiNews = () => {
     axios.get(adressNews).then((res) => {
       this.setState({
@@ -91,7 +172,7 @@ class App extends React.Component {
       });
       console.log(res.data);
     });
-    
+
   };
 
   apiWeather = () => {
@@ -99,52 +180,52 @@ class App extends React.Component {
 
       const prefix = res.data;
 
-this.setState({
-  weather: {
+      this.setState({
+        weather: {
 
           coor: {
-          lat: null,
-          lon: null,
-        },
+            lat: null,
+            lon: null,
+          },
 
-        main: {
-          temp: prefix.main.temp,
-          pressure: null,
-        },
-        name: prefix.name,
-        rain: prefix.rain,
-        snow: prefix.snow,
-        icon: prefix.weather[0].icon,
-        wind: {
-          deg: prefix.wind.deg,
-          speed: prefix.wind.speed
+          main: {
+            temp: prefix.main.temp,
+            pressure: null,
+          },
+          name: prefix.name,
+          rain: prefix.rain,
+          snow: prefix.snow,
+          icon: prefix.weather[0].icon,
+          wind: {
+            deg: prefix.wind.deg,
+            speed: prefix.wind.speed
+          }
         }
-  }
-});
+      });
     });
   };
 
-exchange = ()=> {
-  axios.get(adressExchangeRate_PLN).then((res) => {
-    this.setState({   
-      exchangeRate: {
-        PLN: res.data.rates.PLN,   
-      }              
-    });   
-  });
+  exchange = () => {
+    axios.get(adressExchangeRate_PLN).then((res) => {
+      this.setState({
+        exchangeRate: {
+          PLN: res.data.rates.PLN,
+        }
+      });
+    });
 
-  axios.get(adressExchangeRate_USD).then((res) => {
-    this.setState(prevState => {  
-      return{ 
-      exchangeRate: {
-        PLN: prevState.exchangeRate.PLN,
-        USD: res.data.rates.PLN,   
-      }        
-    }      
-    });   
+    axios.get(adressExchangeRate_USD).then((res) => {
+      this.setState(prevState => {
+        return {
+          exchangeRate: {
+            PLN: prevState.exchangeRate.PLN,
+            USD: res.data.rates.PLN,
+          }
+        }
+      });
 
-  });
-}
+    });
+  }
 
   handleAlert = (status, message) => {
     this.setState({
@@ -224,6 +305,8 @@ exchange = ()=> {
       this.setState({
         editTask: tempTask,
       });
+
+      tempTask = undefined;
     }
 
     // LIKE I DELETE- TRZEBA DOROBIC; NAJLEPIEJ WRZUCIC DO FUNKCJI EDIT
@@ -237,6 +320,7 @@ exchange = ()=> {
           liked: !tempTask.liked,
           kind: tempTask.kind,
           description: tempTask.description,
+          date: tempTask.date,
         })
         .then((res) => {
           this.downloadTasks();
@@ -253,6 +337,7 @@ exchange = ()=> {
           kind: tempTask.kind,
           description: tempTask.description,
           liked: tempTask.liked,
+          date: tempTask.date,
         })
         .then((res) => {
           this.downloadTasks();
@@ -315,7 +400,7 @@ exchange = ()=> {
   render() {
     return (
       <>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={this.theme}>
           <CssBaseline />
           <Router>
             <MenuTop
@@ -348,30 +433,30 @@ exchange = ()=> {
                   handleAlert={this.handleAlert.bind(this)}
                 />
               ) : (
-                <>
-                  <Switch>
-                    <Route path="/" exact>
-                      <CardComponent
-                        tasks={this.state.tasks}
-                        handleTaskStatus={(id, kind) => {
-                          this.handleTaskStatus(id, kind);
-                        }}
-                      />
-                    </Route>
-                    <Route path="/done">
-                      <CardDoneComponent
-                        tasks={this.state.tasks}
-                        handleTaskStatus={(id, kind) => {
-                          this.handleTaskStatus(id, kind);
-                        }}
-                      />
-                    </Route>
-                    <Route path="/news">
-                      <NewsComponent news={this.state.news} />
-                    </Route>
-                  </Switch>
-                </>
-              )}
+                  <>
+                    <Switch>
+                      <Route path="/" exact>
+                        <CardComponent
+                          tasks={this.state.tasks}
+                          handleTaskStatus={(id, kind) => {
+                            this.handleTaskStatus(id, kind);
+                          }}
+                        />
+                      </Route>
+                      <Route path="/done">
+                        <CardDoneComponent
+                          tasks={this.state.tasks}
+                          handleTaskStatus={(id, kind) => {
+                            this.handleTaskStatus(id, kind);
+                          }}
+                        />
+                      </Route>
+                      <Route path="/news">
+                        <NewsComponent news={this.state.news} />
+                      </Route>
+                    </Switch>
+                  </>
+                )}
 
               {this.state.editTask ? (
                 <EditTaskComponent
@@ -380,18 +465,20 @@ exchange = ()=> {
                   handleEditTaskSave={this.handleEditTaskSave.bind(this)}
                 />
               ) : (
-                <></>
-              )}
+                  <></>
+                )}
 
               {this.state.user ? (
                 <UserComponent
                   username={this.state.loggedUser}
                   name={this.state.name}
                   handleUser={this.handleUser.bind(this)}
+                  paletteSwitch={(value) => this.paletteSwitch(value)}
+                  palette={this.state.palette}
                 />
               ) : (
-                <></>
-              )}
+                  <></>
+                )}
             </Container>
           </Router>
         </ThemeProvider>

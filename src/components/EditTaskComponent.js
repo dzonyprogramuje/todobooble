@@ -124,7 +124,7 @@ class EditTaskComponent extends React.Component {
                 <TextField
                   id="standard-select-currency"
                   select
-                  color="secondary"
+
                   // label={}
                   value={this.state.kind}
                   onChange={(e) => {
@@ -151,7 +151,7 @@ class EditTaskComponent extends React.Component {
                 <TextField
                   id="standard-full-width"
                   label="Tresc"
-                  color="secondary"
+
                   placeholder={this.state.description}
                   value={this.state.description}
                   onChange={(e) => {
@@ -168,10 +168,12 @@ class EditTaskComponent extends React.Component {
           </form>
 
           <DialogActions>
-            <Button onClick={this.props.handleEditTask} color="secondary">
+            <Button onClick={this.props.handleEditTask}
+              variant="outlined" color="secondary">
               Anuluj
             </Button>
-            <Button onClick={this.handleEditTaskSave} color="secondary">
+            <Button onClick={this.handleEditTaskSave} color="primary"
+              variant="outlined">
               Zapisz
             </Button>
           </DialogActions>

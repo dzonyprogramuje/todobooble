@@ -33,18 +33,18 @@ class App extends React.Component {
   };
 
   handleNewTaskForm = (e, key) => {
-if(key === "description" && this.state.description.length < 155){
-  this.setState({
-    description: e.target.value,
-  });
-} else if(key === "kind" ){
-  this.setState({
-    kind: e.target.value,
-  });
-}
-     
+    if (key === "description" && this.state.description.length < 155) {
+      this.setState({
+        description: e.target.value,
+      });
+    } else if (key === "kind") {
+      this.setState({
+        kind: e.target.value,
+      });
+    }
 
-    
+
+
   };
 
   handleNewTaskPrepare = () => {
@@ -120,7 +120,7 @@ if(key === "description" && this.state.description.length < 155){
                 <TextField
                   id="standard-select-currency"
                   select
-                  color={"secondary"}
+
                   label="Kategoria"
                   value={this.state.kind}
                   onChange={(e) => {
@@ -147,7 +147,7 @@ if(key === "description" && this.state.description.length < 155){
                 <TextField
                   id="standard-full-width"
                   label="Tresc"
-                  color={"secondary"}
+
                   placeholder="Wprowadz tresc taska"
                   value={this.state.description}
                   onChange={(e) => {
@@ -171,9 +171,10 @@ if(key === "description" && this.state.description.length < 155){
             >
               Anuluj
             </Button>
+
             <Button
               onClick={this.handleNewTaskPrepare}
-              color="secondary"
+              color="primary"
               variant="outlined"
             >
               Zapisz

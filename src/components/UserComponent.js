@@ -21,7 +21,7 @@ import FaceIcon from '@material-ui/icons/Face';
 import TextIcon from '@material-ui/icons/TextFields';
 
 import DayIcon from '@material-ui/icons/WbSunny';
-import NightIcon from '@material-ui/icons/Brightness2';
+import NightIcon from '@material-ui/icons/NightsStay';
 
 // const useStyles = makeStyles({
 //   avatar: {
@@ -41,7 +41,18 @@ import NightIcon from '@material-ui/icons/Brightness2';
 class UserComponent extends React.Component {
   //  { open } = this.props;
 
-  state = {};
+  state = {
+    passwordOld: '',
+    passwordNew2: '',
+    passwordNew2: ''
+  }
+
+
+
+  paletteSwitch = (e) => {
+
+    this.props.paletteSwitch(e.target.value);
+  }
 
   render() {
     return (
@@ -52,80 +63,107 @@ class UserComponent extends React.Component {
           aria-labelledby="simple-dialog-title"
           open={true}
         >
-          <DialogTitle id="simple-dialog-title">Panel uzytkownika <b>IN PROGRESS</b></DialogTitle>
+          <DialogTitle id="simple-dialog-title">Panel uzytkownika</DialogTitle>
 
-          <form noValidate autoComplete="off">
-            <List>  
-             <ListItem>
+
+          <List>
+            <ListItem>
 
               <TextField
-              color={"secondary"}
-                  id="standard-full-width"
-                  label="Twoja nazwa uzytkownika"
-                  placeholder="Twoja nazwa uzytkownika"
-                  disabled
-                  value={this.props.username}
-                  fullWidth
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />                   
+                margin='normal'
+                id="standard-full-width"
+                label="Twoja nazwa uzytkownika"
+                placeholder="Twoja nazwa uzytkownika"
+                disabled
+                value={this.props.username}
+                fullWidth
 
-              </ListItem>
-              <ListItem>
-                <TextField
-                color={"secondary"}
-                  id="standard-full-width"
-                  label="Imie"
-                  placeholder="Twoje imie"
-                  value={this.props.name}
-                  // onChange={(e) => {
-                  //   this.handleTask(e, "description");
-                  // }}
-                  fullWidth
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </ListItem>
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
 
-              <ListItem>
-                <TextField
-                color={"secondary"}
-                  id="standard-select-currency"
-                  select
-                  // label={}
-                  value="{this.state.kind}"
-                  // onChange={(e) => {
-                  //   this.handleTask(e, "kind");
-                  // }}
-                  helperText="Wybierz motyw kolorow"
-                >
-                  <MenuItem key="option_rozrywka" value="Rozrywka">
-                    <ListItemIcon>
-                      <NightIcon fontSize="small" />
-                    </ListItemIcon>
-                    <Typography variant="inherit">Noc</Typography>
-                  </MenuItem>
-                  <MenuItem key="option_praca" value="Praca">
+            </ListItem>
+
+
+            <ListItem>
+              <TextField
+                margin='normal'
+                id="standard-full-width"
+                type='password'
+                label="Chcesz zmienic swoje haslo?"
+                placeholder="Podaj nowe haslo"
+                value={this.props.name}
+                // onChange={(e) => {
+                //   this.handleTask(e, "description");
+                // }}
+                fullWidth
+
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </ListItem>
+
+            <ListItem>
+              <TextField
+                margin='normal'
+                id="standard-full-width"
+                type='password'
+                label="Podaj ponownie nowe haslo"
+                placeholder="Potwierdz nowe haslo"
+                value={this.props.name}
+                // onChange={(e) => {
+                //   this.handleTask(e, "description");
+                // }}
+                fullWidth
+
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </ListItem>
+
+            <ListItem style={{ marginTop: 20 }}>
+              <TextField
+
+                style={{ flex: 1 }}
+                id="standard-select-currency"
+                select
+                // label={}
+                value={this.props.palette}
+                onChange={(e) => {
+                  this.paletteSwitch(e);
+                }}
+                helperText="Wybierz motyw kolorow"
+              >
+
+                <MenuItem key="option_praca" value="light">
                   <ListItemIcon>
-                      <DayIcon fontSize="small" />
-                    </ListItemIcon>
-                    <Typography variant="inherit">Dzien</Typography>
-                  </MenuItem>
+                    <DayIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Typography variant="inherit">Dzien</Typography>
+                </MenuItem>
 
-                </TextField>
-              </ListItem>
-            </List>
-          </form>
+                <MenuItem key="option_theme" value="dark">
+                  <ListItemIcon>
+                    <NightIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Typography variant="inherit">Noc</Typography>
+                </MenuItem>
+
+              </TextField>
+            </ListItem>
+          </List>
+
 
           <DialogActions>
-            <Button onClick={this.props.handleUser} color="secondary">
+            <Button onClick={this.props.handleUser} color="secondary"
+              variant="outlined">
               Anuluj
             </Button>
-            <Button onClick="{this.handleEditTaskSave}" color="secondary">
+            <Button onClick={this.props.handleUser} color="primary"
+              variant="outlined">
               Zapisz
             </Button>
           </DialogActions>

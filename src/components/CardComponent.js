@@ -69,8 +69,9 @@ export default function CardComponent(props) {
               md={6}
               lg={4}
               xl={4}
-              
+
             >
+
               <Card style={{ height: "100%" }} key={`tasks_${id}`}>
                 <CardHeader
                   avatar={<Avatar src="/broken-image.jpg" />}
@@ -82,16 +83,11 @@ export default function CardComponent(props) {
                   title={task.kind}
                   subheader={"Dodano: " + task.date}
                 />
-                {/* <CardMedia
-                  className={classes.media}
-                  image="/static/images/cards/paella.jpg"
-                  title="Paella dish"
-                /> */}
                 <CardContent>
                   <Typography
-                  
+
                     variant="body2"
-                    color="textSecondary"
+                    color="textPrimary"
                     component="p"
                   >
                     {task.description}
@@ -105,7 +101,7 @@ export default function CardComponent(props) {
                       handleTaskIcons(e, "like");
                     }}
                   >
-                    <FavoriteIcon color={task.liked ? "secondary" : ""} />
+                    <FavoriteIcon color={task.liked ? "primary" : ""} />
                   </IconButton>
                   <IconButton
                     aria-label="done"
