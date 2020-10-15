@@ -13,6 +13,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DoneIcon from "@material-ui/icons/AssignmentTurnedIn";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
 
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
@@ -59,90 +60,102 @@ export default function CardComponent(props) {
 
   return (
     <Grid container spacing={2} style={{ marginTop: 18 }}>
-      {tasks.map((task, id) => {
-        if (task.deleted !== true && task.done !== true) {
-          return (
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={6}
-              lg={4}
-              xl={4}
+      {
+        tasks != false ?
+          tasks.map((task, id) => {
+            if (task.deleted !== true && task.done !== true) {
+              return (
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={6}
+                  lg={4}
+                  xl={4}
 
-            >
-
-              <Card style={{ height: "100%" }} key={`tasks_${id}`}>
-                <CardHeader
-                  avatar={<Avatar src="/broken-image.jpg" />}
-                  action={
-                    <IconButton id={task._id} onClick={handleClick}>
-                      <MoreVertIcon />
-                    </IconButton>
-                  }
-                  title={task.kind}
-                  subheader={"Dodano: " + task.date}
-                />
-                <CardContent>
-                  <Typography
-
-                    variant="body2"
-                    color="textPrimary"
-                    component="p"
-                  >
-                    {task.description}
-                  </Typography>
-                </CardContent>
-                <CardActions disableSpacing flex md={0}>
-                  <IconButton
-                    aria-label="add to favorites"
-                    id={task._id}
-                    onClick={(e, kind) => {
-                      handleTaskIcons(e, "like");
-                    }}
-                  >
-                    <FavoriteIcon color={task.liked ? "primary" : ""} />
-                  </IconButton>
-                  <IconButton
-                    aria-label="done"
-                    id={task._id}
-                    onClick={(e, kind) => {
-                      handleTaskIcons(e, "done");
-                    }}
-                  >
-                    <DoneIcon />
-                  </IconButton>
-                </CardActions>
-              </Card>
-
-              <Menu
-                id="options-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem
-                  id={task._id}
-                  onClick={(kind) => {
-                    handleMiniMenu("edit");
-                  }}
                 >
-                  Edytuj
+
+                  <Card style={{ height: "100%" }} key={`tasks_${id}`}>
+                    <CardHeader
+                      avatar={<Avatar src="/broken-image.jpg" />}
+                      action={
+                        <IconButton id={task._id} onClick={handleClick}>
+                          <MoreVertIcon />
+                        </IconButton>
+                      }
+                      title={task.kind}
+                      subheader={"Dodano: " + task.date}
+                    />
+                    <CardContent>
+                      <Typography
+
+                        variant="body2"
+                        color="textPrimary"
+                        component="p"
+                      >
+                        {task.description}
+                      </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing flex md={0}>
+                      <IconButton
+                        aria-label="add to favorites"
+                        id={task._id}
+                        onClick={(e, kind) => {
+                          handleTaskIcons(e, "like");
+                        }}
+                      >
+                        <FavoriteIcon color={task.liked ? "primary" : ""} />
+                      </IconButton>
+                      <IconButton
+                        aria-label="done"
+                        id={task._id}
+                        onClick={(e, kind) => {
+                          handleTaskIcons(e, "done");
+                        }}
+                      >
+                        <DoneIcon />
+                      </IconButton>
+                    </CardActions>
+                  </Card>
+
+                  <Menu
+                    id="options-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem
+                      id={task._id}
+                      onClick={(kind) => {
+                        handleMiniMenu("edit");
+                      }}
+                    >
+                      Edytuj
                 </MenuItem>
-                <MenuItem
-                  id={task._id}
-                  onClick={(kind) => {
-                    handleMiniMenu("delete");
-                  }}
-                >
-                  Usun
+                    <MenuItem
+                      id={task._id}
+                      onClick={(kind) => {
+                        handleMiniMenu("delete");
+                      }}
+                    >
+                      Usun
                 </MenuItem>
-              </Menu>
-            </Grid>
-          );
-        }
-      })}
+                  </Menu>
+                </Grid>
+              );
+            }
+          })
+
+          :
+          <Grid
+            item
+            xs={12}
+            flex={1}
+          >
+            <Button fullWidth color='secondary' variant="contained" onClick={props.handleNewTask}>Nie posiadasz zadnych zadan</Button>
+          </Grid>
+      }
     </Grid>
   );
 }

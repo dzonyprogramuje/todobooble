@@ -13,6 +13,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import BackupIcon from "@material-ui/icons/Backup";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
 
 import Grid from "@material-ui/core/Grid";
 
@@ -57,86 +58,107 @@ export default function CardDoneComponent(props) {
   const tasks = props.tasks;
 
   return (
-    <Grid container spacing={2} style={{ marginTop: 18 }}>
-      {tasks.map((task, id) => {
-        if (task.done === true && task.deleted !== true) {
-          return (
-            <Grid item xs={12} style={{ marginTop: 10 }}>
-              <Card key={`task_${id}`}>
-                <CardHeader
-                  avatar={<Avatar src="/broken-image.jpg" />}
-                  action={
-                    <IconButton id={task._id} onClick={handleClick}>
-                      <MoreVertIcon />
-                    </IconButton>
-                  }
-                  title={task.kind}
-                  subheader={task.date}
-                />
-                <CardMedia
-                  className={classes.media}
-                  image="/static/images/cards/paella.jpg"
-                  title="Paella dish"
-                />
-                <CardContent>
-                  <Typography
-                    variant="body2"
-                    color="textPrimary"
-                    component="p"
-                  >
-                    {task.description}
-                  </Typography>
-                </CardContent>
-                <CardActions disableSpacing>
-                  <IconButton
-                    aria-label="add to favorites"
-                    id={task._id}
-                    onClick={(e, kind) => {
-                      handleTaskIcons(e, "like");
-                    }}
-                  >
-                    <FavoriteIcon color={task.liked ? "primary" : ""} />
-                  </IconButton>
-                  <IconButton
-                    aria-label="done"
-                    id={task._id}
-                    onClick={(e, kind) => {
-                      handleTaskIcons(e, "done");
-                    }}
-                  >
-                    <BackupIcon />
-                  </IconButton>
-                </CardActions>
-              </Card>
 
-              <Menu
-                id="options-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem
-                  id={task._id}
-                  onClick={(kind) => {
-                    handleMiniMenu("edit");
-                  }}
-                >
-                  Edytuj
+    < Grid container spacing={2} style={{ marginTop: 18 }}>
+      {
+
+        tasks.map(task => {
+          if (task.done == true)
+            return task
+        }) != false ?
+
+          tasks.map((task, id) => {
+            if (task.done === true && task.deleted !== true) {
+              return (
+                <Grid item xs={12} style={{ marginTop: 10 }}>
+                  <Card key={`task_${id}`}>
+                    <CardHeader
+                      avatar={<Avatar src="/broken-image.jpg" />}
+                      action={
+                        <IconButton id={task._id} onClick={handleClick}>
+                          <MoreVertIcon />
+                        </IconButton>
+                      }
+                      title={task.kind}
+                      subheader={task.date}
+                    />
+                    <CardMedia
+                      className={classes.media}
+                      image="/static/images/cards/paella.jpg"
+                      title="Paella dish"
+                    />
+                    <CardContent>
+                      <Typography
+                        variant="body2"
+                        color="textPrimary"
+                        component="p"
+                      >
+                        {task.description}
+                      </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                      <IconButton
+                        aria-label="add to favorites"
+                        id={task._id}
+                        onClick={(e, kind) => {
+                          handleTaskIcons(e, "like");
+                        }}
+                      >
+                        <FavoriteIcon color={task.liked ? "primary" : ""} />
+                      </IconButton>
+                      <IconButton
+                        aria-label="done"
+                        id={task._id}
+                        onClick={(e, kind) => {
+                          handleTaskIcons(e, "done");
+                        }}
+                      >
+                        <BackupIcon />
+                      </IconButton>
+                    </CardActions>
+                  </Card>
+
+                  <Menu
+                    id="options-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem
+                      id={task._id}
+                      onClick={(kind) => {
+                        handleMiniMenu("edit");
+                      }}
+                    >
+                      Edytuj
                 </MenuItem>
-                <MenuItem
-                  id={task._id}
-                  onClick={(kind) => {
-                    handleMiniMenu("delete");
-                  }}
-                >
-                  Usun
+                    <MenuItem
+                      id={task._id}
+                      onClick={(kind) => {
+                        handleMiniMenu("delete");
+                      }}
+                    >
+                      Usun
                 </MenuItem>
-              </Menu>
-            </Grid>
-          );
-        }
-      })}
-    </Grid>
+                  </Menu>
+                </Grid>
+              );
+            }
+          })
+
+          :
+          <Grid
+            item
+            xs={12}
+            flex={1}
+          >
+            <Button fullWidth color='secondary' variant="contained">Nie posiadasz zadnych ukonczonych zadan</Button>
+          </Grid>
+
+      }
+    </Grid >
   );
 }
+
+

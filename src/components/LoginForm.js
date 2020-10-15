@@ -29,17 +29,17 @@ class LoginForm extends React.Component {
   // Przerobic te dwie funkcje na jedna uniwersalna
   handleUsername = (e) => {
     this.setState({
-      username: e.target.value,
+      username: e.target.value.toLowerCase(),
     });
   };
   handlePassword = (e) => {
     this.setState({
-      password: e.target.value,
+      password: e.target.value.toLowerCase(),
     });
   };
   handlePassword2 = (e) => {
     this.setState({
-      password2: e.target.value,
+      password2: e.target.value.toLowerCase(),
     });
   };
 
@@ -114,7 +114,6 @@ class LoginForm extends React.Component {
                 <TextField
                   autoFocus
                   fullWidth
-
                   id="login"
                   label="Nazwa uzytkownika"
                   onChange={this.handleUsername}

@@ -150,7 +150,7 @@ class App extends React.Component {
         palette: {
           type: 'light',
           primary: {
-            main: '#3d00e0',
+            main: '#5300e8',
           },
           secondary: {
             main: '#ad2f5a',
@@ -242,10 +242,12 @@ class App extends React.Component {
   };
 
   handleLoggedUser = (username) => {
+
     this.setState({
       loggedUser: username,
       logged: true,
     });
+
     this.apiWeather();
     this.exchange();
   };
@@ -394,6 +396,9 @@ class App extends React.Component {
   handleLogged = () => {
     this.setState({
       logged: false,
+      loggedUser: "",
+      tasks: [],
+      news: [],
     });
   };
 
@@ -441,6 +446,7 @@ class App extends React.Component {
                           handleTaskStatus={(id, kind) => {
                             this.handleTaskStatus(id, kind);
                           }}
+                          handleNewTask={this.handleNewTask.bind(this)}
                         />
                       </Route>
                       <Route path="/done">
