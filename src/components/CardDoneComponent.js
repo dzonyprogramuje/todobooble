@@ -14,6 +14,7 @@ import BackupIcon from "@material-ui/icons/Backup";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
+import HelpIcon from '@material-ui/icons/Help';
 
 import Grid from "@material-ui/core/Grid";
 
@@ -68,7 +69,7 @@ export default function CardDoneComponent(props) {
         }) != false ?
 
           tasks.map((task, id) => {
-            if (task.done === true && task.deleted !== true) {
+            if (task.deleted !== true) {
               return (
                 <Grid item xs={12} style={{ marginTop: 10 }}>
                   <Card key={`task_${id}`}>
@@ -153,7 +154,7 @@ export default function CardDoneComponent(props) {
             xs={12}
             flex={1}
           >
-            <Button fullWidth color='secondary' variant="contained">Nie posiadasz zadnych ukonczonych zadan</Button>
+            <Button startIcon={<HelpIcon />} fullWidth color='secondary' variant="contained">Nie posiadasz zadnych ukonczonych zadan</Button>
           </Grid>
 
       }

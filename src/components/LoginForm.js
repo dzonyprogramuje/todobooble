@@ -5,6 +5,9 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Link from '@material-ui/core/Link';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import Box from '@material-ui/core/Box';
 
 class LoginForm extends React.Component {
   state = {
@@ -148,11 +151,12 @@ class LoginForm extends React.Component {
               <Grid item xs={12} sm={6} md={4}>
                 <Button
                   color='primary'
-                  variant="outlined"
+                  variant="contained"
+                  startIcon={<PlayArrowIcon />}
                   //   onClick={() => this.props.handleLogged()}
                   onClick={this.handleLoginCheck}
                 >
-                  Zaloguj sie
+                  <Box p={'0 30px'}>Zaloguj sie</Box>
                 </Button>
               </Grid>
             </Grid>
@@ -215,14 +219,15 @@ class LoginForm extends React.Component {
                 </Link>
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xs={12} sm={6} md={4} >
                   <Button
-                    variant="outlined"
+                    variant="contained"
                     color='primary'
+                    startIcon={<PlayArrowIcon />}
                     onClick={this.newAccount}
                   >
-                    Zarejestruj sie
-                </Button>
+                    <Box p={'0 20px'}>Zarejestruj sie</Box>
+                  </Button>
                 </Grid>
               </Grid>
             </form>

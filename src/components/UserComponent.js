@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Grid from "@material-ui/core/Grid";
+import Box from '@material-ui/core/Box';
 
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
@@ -19,6 +20,9 @@ import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 import KeyIcon from '@material-ui/icons/VpnKey';
 import FaceIcon from '@material-ui/icons/Face';
 import TextIcon from '@material-ui/icons/TextFields';
+
+import SaveIcon from '@material-ui/icons/SaveAlt';
+import CancelIcon from '@material-ui/icons/CancelPresentation';
 
 import DayIcon from '@material-ui/icons/WbSunny';
 import NightIcon from '@material-ui/icons/NightsStay';
@@ -159,12 +163,12 @@ class UserComponent extends React.Component {
 
           <DialogActions>
             <Button onClick={this.props.handleUser} color="secondary"
-              variant="outlined">
-              Anuluj
+              variant="contained" startIcon={<CancelIcon />}>
+              <Box p={'0 20px'}>Anuluj</Box>
             </Button>
             <Button onClick={this.props.handleUser} color="primary"
-              variant="outlined">
-              Zapisz
+              variant="contained" startIcon={<SaveIcon />}>
+              <Box p={'0 20px'}>Zapisz</Box>
             </Button>
           </DialogActions>
         </Dialog>

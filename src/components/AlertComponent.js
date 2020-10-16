@@ -35,7 +35,7 @@ export default function AlertComponent(props) {
         autoHideDuration={4000}
         onClose={props.alertClose}
       >
-        <Alert severity={props.alertStatus}>{props.alert}</Alert>
+        <Alert variant="filled" severity={props.alertStatus}>{props.alert}</Alert>
       </Snackbar>
 
       {/* <Alert severity="warning">This is a warning alert — check it out!</Alert>

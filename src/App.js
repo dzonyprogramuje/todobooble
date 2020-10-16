@@ -62,7 +62,7 @@ const adressExchangeRate_USD = `https://api.exchangeratesapi.io/latest?base=USD&
 class App extends React.Component {
 
   state = {
-    palette: 'light',
+    palette: 'dark',
     logged: false,
     loggedUser: "",
     newTaskOppened: false,
@@ -97,34 +97,28 @@ class App extends React.Component {
   };
 
   theme = createMuiTheme({
+
     palette: {
-      type: 'light',
+      type: 'dark',
       primary: {
-        main: '#3d00e0',
+        main: '#906dd2',
       },
       secondary: {
-        main: '#ad2f5a',
+        main: '#e6498e',
       },
     },
-  });
+    shape: {
+      borderRadius: '0'
+    },
+    typography: {
+      button: {
+        fontWeight: 400,
+        fontSize: "0.75rem",
+      }
+    },
 
-  // theme = createMuiTheme({
-  //   palette: {
-  //     type: this.state.palette,
-  //     primary: {
-  //       light: "#bc477b",
-  //       main: "#424242",
-  //       dark: "#e1f5fe",
-  //       contrastText: "#fff",
-  //     },
-  //     secondary: {
-  //       light: "#b2fef7",
-  //       main: "#80cbc4",
-  //       dark: "#e1f5fe",
-  //       contrastText: "#000",
-  //     },
-  //   },
-  // });
+
+  });
 
   paletteSwitch = (value) => {
     console.log(value);
@@ -138,10 +132,19 @@ class App extends React.Component {
         palette: {
           type: 'dark',
           primary: {
-            main: '#7e3ff2',
+            main: '#906dd2',
           },
           secondary: {
             main: '#e6498e',
+          },
+        },
+        shape: {
+          borderRadius: '0'
+        },
+        typography: {
+          button: {
+            fontWeight: 400,
+            fontSize: "0.75rem",
           }
         }
       });
@@ -150,17 +153,24 @@ class App extends React.Component {
         palette: {
           type: 'light',
           primary: {
-            main: '#5300e8',
+            main: '#0256ee',
           },
           secondary: {
-            main: '#ad2f5a',
+            main: '#ff295e',
           },
-          text: {
-            primary: 'rgba(0, 0, 0, 0.87)',
-            secondary: 'rgba(0, 0, 0, 0.75)',
-            disabled: 'rgba(0,0,0, 0.6)'
+          background: {
+            default: '#f5f5f5'
+          },
+        },
+        shape: {
+          borderRadius: '0'
+        },
+        typography: {
+          button: {
+            fontWeight: 400,
+            fontSize: "0.75rem",
           }
-        }
+        },
       });
     }
   }
@@ -247,7 +257,6 @@ class App extends React.Component {
       loggedUser: username,
       logged: true,
     });
-
     this.apiWeather();
     this.exchange();
   };
@@ -455,6 +464,7 @@ class App extends React.Component {
                           handleTaskStatus={(id, kind) => {
                             this.handleTaskStatus(id, kind);
                           }}
+                          handleNewTask={this.handleNewTask.bind(this)}
                         />
                       </Route>
                       <Route path="/news">

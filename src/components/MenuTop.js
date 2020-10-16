@@ -88,10 +88,13 @@ function MenuTop(props) {
           {props.logged === true ? (
             <>
               <Box flexGrow={1} display={{ xs: 'none', sm: 'flex' }}>
-                <Typography variant="overline" fontWeight={300} color="inherit" className={classes.title}>
+                <Typography variant="overline" color="inherit" className={classes.title}>
                   Witaj, {props.loggedUser}
                 </Typography>
               </Box>
+
+
+
               <Box display="flex" flexGrow={1} justifyContent="flex-end">
                 <ExchangeRateComponent pln={props.pln} usd={props.usd} />
                 <WeatherComponent weather={props.weather} />
@@ -99,7 +102,7 @@ function MenuTop(props) {
             </>
           ) : (
               <>
-                <Typography variant="overline" fontWeight={300} color="inherit" className={classes.title}>
+                <Typography variant="overline" color="inherit" className={classes.title}>
 
                   Zaloguj sie
               </Typography>
@@ -123,7 +126,7 @@ function MenuTop(props) {
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
-          <List>
+          <List className="navigation_bar">
             <ListItem button key="Add" onClick={props.handleNewTask}>
               <ListItemIcon>
                 <AddIcon />
@@ -135,10 +138,11 @@ function MenuTop(props) {
               <ListItemIcon>
                 <ListIcon />
               </ListItemIcon>
-              <ListItemText color="secondary" primary="Moje zadania" />
+              {/* <Typography style={{ textDecoration: 'none' }}>XXD</Typography> */}
+              <ListItemText color='innerheit' primary="Moje zadania" />
             </ListItem>
 
-            <ListItem button key="Done" to="/done" component={Link}>
+            <ListItem button key="Done" to="/done" component={Link} >
               <ListItemIcon>
                 <DoneIcon />
               </ListItemIcon>

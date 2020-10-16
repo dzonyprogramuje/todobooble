@@ -14,6 +14,7 @@ import DoneIcon from "@material-ui/icons/AssignmentTurnedIn";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
+import HelpIcon from '@material-ui/icons/Help';
 
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
@@ -61,9 +62,12 @@ export default function CardComponent(props) {
   return (
     <Grid container spacing={2} style={{ marginTop: 18 }}>
       {
-        tasks != false ?
+        tasks.map(task => {
+          if (task.done == true) return task
+        }) == false || tasks == true ?
+
           tasks.map((task, id) => {
-            if (task.deleted !== true && task.done !== true) {
+            if (task.done !== true) {
               return (
                 <Grid
                   item
@@ -153,7 +157,9 @@ export default function CardComponent(props) {
             xs={12}
             flex={1}
           >
-            <Button fullWidth color='secondary' variant="contained" onClick={props.handleNewTask}>Nie posiadasz zadnych zadan</Button>
+            <Button startIcon={<HelpIcon />} fullWidth color='secondary' variant="contained" onClick={props.handleNewTask}>
+              Nie posiadasz zadnych zadan
+              </Button>
           </Grid>
       }
     </Grid>

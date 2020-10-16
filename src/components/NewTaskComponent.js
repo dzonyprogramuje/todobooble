@@ -8,6 +8,10 @@ import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import DialogActions from "@material-ui/core/DialogActions";
+import Box from '@material-ui/core/Box';
+
+import SaveIcon from '@material-ui/icons/SaveAlt';
+import CancelIcon from '@material-ui/icons/CancelPresentation';
 
 // const useStyles = makeStyles({
 //   avatar: {
@@ -120,7 +124,7 @@ class App extends React.Component {
                 <TextField
                   id="standard-select-currency"
                   select
-
+                  style={{ flex: 1 }}
                   label="Kategoria"
                   value={this.state.kind}
                   onChange={(e) => {
@@ -167,17 +171,21 @@ class App extends React.Component {
             <Button
               onClick={this.props.handleNewTask}
               color="secondary"
-              variant="outlined"
+              variant="contained"
+              startIcon={<CancelIcon />}
+              iconSizeSmall
             >
-              Anuluj
+              <Box p={'0 20px'}>Anuluj</Box>
             </Button>
 
             <Button
               onClick={this.handleNewTaskPrepare}
               color="primary"
-              variant="outlined"
+              variant="contained"
+              startIcon={<SaveIcon />}
+              iconSizeSmall
             >
-              Zapisz
+              <Box p={'0 20px'}>Zapisz</Box>
             </Button>
           </DialogActions>
         </Dialog>

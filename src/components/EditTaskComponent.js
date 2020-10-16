@@ -2,12 +2,15 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import Box from '@material-ui/core/Box';
 
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import DialogActions from "@material-ui/core/DialogActions";
+import SaveIcon from '@material-ui/icons/SaveAlt';
+import CancelIcon from '@material-ui/icons/CancelPresentation';
 
 // const useStyles = makeStyles({
 //   avatar: {
@@ -124,7 +127,7 @@ class EditTaskComponent extends React.Component {
                 <TextField
                   id="standard-select-currency"
                   select
-
+                  style={{ flex: 1 }}
                   // label={}
                   value={this.state.kind}
                   onChange={(e) => {
@@ -169,12 +172,12 @@ class EditTaskComponent extends React.Component {
 
           <DialogActions>
             <Button onClick={this.props.handleEditTask}
-              variant="outlined" color="secondary">
-              Anuluj
+              variant="contained" color="secondary" startIcon={<CancelIcon />}>
+              <Box p={'0 20px'}>Anuluj</Box>
             </Button>
             <Button onClick={this.handleEditTaskSave} color="primary"
-              variant="outlined">
-              Zapisz
+              variant="contained" startIcon={<SaveIcon />}>
+              <Box p={'0 20px'}>Zapisz</Box>
             </Button>
           </DialogActions>
         </Dialog>
