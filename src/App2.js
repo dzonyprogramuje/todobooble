@@ -31,6 +31,33 @@ const adressWeather = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}
 const adressExchangeRate_PLN = `https://api.exchangeratesapi.io/latest?symbols=PLN`;
 const adressExchangeRate_USD = `https://api.exchangeratesapi.io/latest?base=USD&symbols=PLN`;
 
+// let theme = createMuiTheme({
+//   palette: {
+//     type: 'dark',
+//     primary: {
+//       light: "#bc477b",
+//       main: "#424242",
+//       dark: "#560027",
+//       contrastText: "#fff",
+//     },
+//     secondary: {
+//       light: "#b2fef7",
+//       main: "#80cbc4",
+//       dark: "#4f9a94",
+//       contrastText: "#000",
+//     },
+//   },
+// });
+
+// const palletteSwitch = (value) => {
+//   console.log(value);
+
+//   theme = createMuiTheme({
+//     type: value
+//   });
+
+// }
+
 
 class App extends React.Component {
 
@@ -45,11 +72,13 @@ class App extends React.Component {
     alertStatus: "",
     alertOppened: false,
     tasks: [],
+    tasksMongo: [],
     news: [],
     exchangeRate: {
       PLN: "",
       USD: "",
     },
+
     weather: {
       coord: {
         lat: 25.066668,
@@ -223,16 +252,13 @@ class App extends React.Component {
   };
 
   handleLoggedUser = (username) => {
+
     this.setState({
       loggedUser: username,
       logged: true,
     });
     this.apiWeather();
     this.exchange();
-
-
-    console.log(JSON.parse(localStorage.getItem('memory')) == this.state);
-
   };
 
   handleNewTask = () => {
@@ -249,8 +275,6 @@ class App extends React.Component {
       .then((res) => {
         this.taskInit(res.data);
       });
-
-
   };
 
   handleAddNewTask = (newTask) => {
@@ -273,6 +297,7 @@ class App extends React.Component {
     });
 
     if (kind === "delete") {
+      console.log(id);
       // result[id].deleted = !result[id].deleted;
       axios.post(`${adress}/tasks/delete`, { _id: id }).then((res) => {
         this.downloadTasks();
@@ -375,39 +400,16 @@ class App extends React.Component {
     this.setState({
       tasks: tasks,
     });
-    // localStorage.setItem('memory', JSON.stringify(this.state));
   };
 
   handleLogged = () => {
-
     this.setState({
       logged: false,
       loggedUser: "",
       tasks: [],
       news: [],
     });
-
-    localStorage.removeItem('memory');
-
   };
-
-
-  componentDidMount() {
-    if (localStorage.getItem('memory') != null) {
-      this.setState(
-        JSON.parse(localStorage.getItem('memory'))
-      );
-    }
-  }
-
-  componentDidUpdate() {
-    localStorage.setItem('memory', JSON.stringify(this.state));
-
-  }
-
-  componentWillUnmount() {
-    localStorage.setItem('memory', JSON.stringify(this.state));
-  }
 
   render() {
     return (

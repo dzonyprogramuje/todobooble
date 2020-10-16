@@ -56,20 +56,25 @@ export default function CardDoneComponent(props) {
     setAnchorEl(undefined);
   };
 
-  const tasks = props.tasks;
+  let tasks = props.tasks;
+  let counter = 0;
+  tasks.map(task => {
+    if (task.done === true) {
+      counter++
+    }
+  });
 
   return (
 
     < Grid container spacing={2} style={{ marginTop: 18 }}>
       {
 
-        tasks.map(task => {
-          if (task.done == true)
-            return task
-        }) != false ?
+
+        counter > 0 ?
 
           tasks.map((task, id) => {
-            if (task.deleted !== true) {
+            console.log(task);
+            if (task.done === true) {
               return (
                 <Grid item xs={12} style={{ marginTop: 10 }}>
                   <Card key={`task_${id}`}>
@@ -146,16 +151,19 @@ export default function CardDoneComponent(props) {
                 </Grid>
               );
             }
-          })
 
+          })
           :
           <Grid
             item
             xs={12}
             flex={1}
           >
-            <Button startIcon={<HelpIcon />} fullWidth color='secondary' variant="contained">Nie posiadasz zadnych ukonczonych zadan</Button>
+            <Button startIcon={<HelpIcon />} fullWidth color='secondary' variant="contained" onClick={props.handleNewTask}>
+              Nie posiadasz zadnych zadan
+              </Button>
           </Grid>
+
 
       }
     </Grid >

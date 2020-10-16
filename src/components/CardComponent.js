@@ -57,17 +57,24 @@ export default function CardComponent(props) {
     setAnchorEl(undefined);
   };
 
-  const tasks = props.tasks;
+  let tasks = props.tasks;
+  let counter = 0;
+  tasks.map(task => {
+    if (task.done === false) {
+      counter++
+    }
+  });
 
   return (
     <Grid container spacing={2} style={{ marginTop: 18 }}>
       {
-        tasks.map(task => {
-          if (task.done == true) return task
-        }) == false || tasks == true ?
+        counter > 0
+
+          ?
 
           tasks.map((task, id) => {
-            if (task.done !== true) {
+            console.log(task);
+            if (task.done == false) {
               return (
                 <Grid
                   item
@@ -76,9 +83,7 @@ export default function CardComponent(props) {
                   md={6}
                   lg={4}
                   xl={4}
-
                 >
-
                   <Card style={{ height: "100%" }} key={`tasks_${id}`}>
                     <CardHeader
                       avatar={<Avatar src="/broken-image.jpg" />}
@@ -92,7 +97,6 @@ export default function CardComponent(props) {
                     />
                     <CardContent>
                       <Typography
-
                         variant="body2"
                         color="textPrimary"
                         component="p"
@@ -152,6 +156,7 @@ export default function CardComponent(props) {
           })
 
           :
+
           <Grid
             item
             xs={12}
