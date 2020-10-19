@@ -23,6 +23,7 @@ import LogoutIcon from "@material-ui/icons/LockOutlined";
 import DoneIcon from "@material-ui/icons/AssignmentTurnedIn";
 import NewsIcon from "@material-ui/icons/Receipt";
 import Button from '@material-ui/core/Button';
+import CreateIcon from '@material-ui/icons/Create';
 
 import NewTaskComponent from "./NewTaskComponent";
 import WeatherComponent from "./WeatherComponent";
@@ -132,11 +133,11 @@ function MenuTop(props) {
           <List className="navigation_bar">
             <ListItem button key="Shopping" to="/simple" component={Link} >
               <ListItemIcon>
-                <ListIcon />
+                <CreateIcon />
               </ListItemIcon>
               <ListItemText primary="Szybki task" />
             </ListItem>
-
+            <Divider />
 
             <ListItem button key="Add" onClick={props.handleNewTask}>
               <ListItemIcon>
@@ -159,9 +160,6 @@ function MenuTop(props) {
               </ListItemIcon>
               <ListItemText primary="Ukonczone zadania" />
             </ListItem>
-
-
-
 
             <Divider />
 

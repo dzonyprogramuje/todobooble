@@ -12,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ShoppingIcon from '@material-ui/icons/AddShoppingCart';
 import { Typography } from '@material-ui/core';
 
+
 // import Card from "@material-ui/core/Card";
 // import CardHeader from "@material-ui/core/CardHeader";
 // import CardMedia from "@material-ui/core/CardMedia";
@@ -27,7 +28,7 @@ import { Typography } from '@material-ui/core';
 // import MenuItem from "@material-ui/core/MenuItem";
 // import Button from "@material-ui/core/Button";
 // import HelpIcon from '@material-ui/icons/Help';
-import ItemIcon from '@material-ui/icons/FeaturedPlayList';
+import ItemIcon from '@material-ui/icons/AttachFile';
 
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
@@ -63,42 +64,43 @@ export default class SimpleListComponent extends React.Component {
                 <Grid container spacing={2} style={{ marginTop: 18 }}>
 
                     < Grid item xs={12} md={10} >
-                        <TextField placeholder="Wprowadz tresc taska" autoFocus value={this.state.value} fullWidth label="Dodaj do listy" variant="outlined" onChange={(e) => this.handleTaskInput(e)} value={this.state.value} />
+                        <TextField autoFocus value={this.state.value} fullWidth label="Dodaj szybki task" variant="outlined" onChange={(e) => this.handleTaskInput(e)} value={this.state.value} />
                     </Grid >
                     <Grid item xs={12} md={2}>
                         <Button
+                            color='secondary'
                             style={{ height: '100%' }}
                             fullWidth
                             variant="contained"
-                            color="primary"
                             size="large"
                             startIcon={<SaveIcon />}
                             onClick={this.handleTaskSave}
                         >
-                            Save
+                            Zapisz
                 </Button>
                     </Grid>
 
-                    <List component="nav" style={{ padding: 0, width: '100%' }}>
-                        {
-                            this.props.simpleTasks.map(task => {
 
-                                return (
-                                    <Grid item xs={12} md={12}>
+                    {
+                        this.props.simpleTasks.map(task => {
 
-                                        <ListItem id={task._id} button onClick={(e) => this.deleteTask(e)}>
-                                            <ListItemIcon>
-                                                <ItemIcon />
-                                            </ListItemIcon>
-                                            <ListItemText secondary={task.date} primary={task.description} />
-                                        </ListItem>
-                                    </Grid>
+                            return (
+                                <Grid item xs={12} md={12}>
 
-                                )
-                            })
-                        }
+                                    <ListItem id={task._id} button onClick={(e) => this.deleteTask(e)}>
+                                        <ListItemIcon>
+                                            <ItemIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={task.description} />
+                                    </ListItem>
 
-                    </List>
+                                </Grid>
+
+                            )
+                        })
+                    }
+
+
                 </Grid >
             </>
         )

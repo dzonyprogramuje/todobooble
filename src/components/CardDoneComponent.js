@@ -15,6 +15,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import HelpIcon from '@material-ui/icons/Help';
+import AddIcon from '@material-ui/icons/Add';
 
 import Grid from "@material-ui/core/Grid";
 
@@ -159,8 +160,8 @@ export default function CardDoneComponent(props) {
             xs={12}
             flex={1}
           >
-            <Button startIcon={<HelpIcon />} fullWidth color='secondary' variant="contained" onClick={props.handleNewTask}>
-              Nie posiadasz zadnych zadan
+            <Button startIcon={<AddIcon />} fullWidth color='secondary' variant="contained" onClick={props.handleNewTask}>
+              Nie posiadasz zadnych ukonczonych zadan zadan
               </Button>
           </Grid>
 
