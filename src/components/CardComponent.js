@@ -97,6 +97,7 @@ export default function CardComponent(props) {
                     />
                     <CardContent>
                       <Typography
+                        multiline
                         variant="body2"
                         color="textPrimary"
                         component="p"

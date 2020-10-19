@@ -126,7 +126,18 @@ function MenuTop(props) {
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
+
+
+
           <List className="navigation_bar">
+            <ListItem button key="Shopping" to="/simple" component={Link} >
+              <ListItemIcon>
+                <ListIcon />
+              </ListItemIcon>
+              <ListItemText primary="Szybki task" />
+            </ListItem>
+
+
             <ListItem button key="Add" onClick={props.handleNewTask}>
               <ListItemIcon>
                 <AddIcon />
@@ -148,6 +159,9 @@ function MenuTop(props) {
               </ListItemIcon>
               <ListItemText primary="Ukonczone zadania" />
             </ListItem>
+
+
+
 
             <Divider />
 

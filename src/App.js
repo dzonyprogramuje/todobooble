@@ -10,6 +10,7 @@ import EditTaskComponent from "./components/EditTaskComponent";
 import UserComponent from "./components/UserComponent";
 import AlertComponent from "./components/AlertComponent";
 import NewsComponent from "./components/NewsComponent";
+import SimpleListComponent from './components/SimpleListComponent';
 
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
@@ -45,7 +46,9 @@ class App extends React.Component {
     alertStatus: "",
     alertOppened: false,
     tasks: [],
+    simpleTasks: [],
     news: [],
+
     exchangeRate: {
       PLN: "",
       USD: "",
@@ -72,10 +75,10 @@ class App extends React.Component {
     palette: {
       type: 'dark',
       primary: {
-        main: '#906dd2',
+        main: '#784dc8',
       },
       secondary: {
-        main: '#e6498e',
+        main: '#e52c78',
       },
     },
     shape: {
@@ -146,14 +149,28 @@ class App extends React.Component {
     }
   }
 
+  handleSimpleList = (task) => {
+    let newTask = {
+      username: this.state.loggedUser,
+      description: task
+    };
+    axios.post(`${adress}/simpletasks/new`, newTask).then((res) => {
+      this.downloadTasks();
+    });
+  }
+
+  deleteSimpleTask = (id) => {
+    axios.post(`${adress}/simpletasks/delete`, { _id: id }).then((res) => {
+      this.downloadTasks();
+    });
+  }
+
   apiNews = () => {
     axios.get(adressNews).then((res) => {
       this.setState({
         news: res.data.articles,
       });
-      console.log(res.data);
     });
-
   };
 
   apiWeather = () => {
@@ -248,6 +265,14 @@ class App extends React.Component {
       })
       .then((res) => {
         this.taskInit(res.data);
+      });
+
+    axios
+      .post(`${adress}/simpletasks/all`, {
+        username: this.state.loggedUser,
+      })
+      .then((res) => {
+        this.simpleTaskInit(res.data);
       });
 
 
@@ -378,6 +403,13 @@ class App extends React.Component {
     // localStorage.setItem('memory', JSON.stringify(this.state));
   };
 
+  simpleTaskInit = (tasks) => {
+    this.setState({
+      simpleTasks: tasks,
+    });
+
+  };
+
   handleLogged = () => {
 
     this.setState({
@@ -467,6 +499,10 @@ class App extends React.Component {
                       </Route>
                       <Route path="/news">
                         <NewsComponent news={this.state.news} />
+                      </Route>
+
+                      <Route path="/simple">
+                        <SimpleListComponent deleteSimpleTask={this.deleteSimpleTask.bind(this)} handleSimpleList={this.handleSimpleList.bind(this)} simpleTasks={this.state.simpleTasks} />
                       </Route>
                     </Switch>
                   </>

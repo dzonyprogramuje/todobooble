@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rounded: {
     color: '#fff',
-    backgroundColor: green[500],
+
   },
 }));
 

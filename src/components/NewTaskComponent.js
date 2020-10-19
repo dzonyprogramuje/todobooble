@@ -127,6 +127,7 @@ class App extends React.Component {
                   style={{ flex: 1 }}
                   label="Kategoria"
                   value={this.state.kind}
+
                   onChange={(e) => {
                     this.handleNewTaskForm(e, "kind");
                   }}
@@ -151,7 +152,7 @@ class App extends React.Component {
                 <TextField
                   id="standard-full-width"
                   label="Tresc"
-
+                  multiline
                   placeholder="Wprowadz tresc taska"
                   value={this.state.description}
                   onChange={(e) => {
