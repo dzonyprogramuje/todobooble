@@ -9,31 +9,17 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import DialogActions from "@material-ui/core/DialogActions";
 import Box from '@material-ui/core/Box';
+import Typography from "@material-ui/core/Typography";
 
 import SaveIcon from '@material-ui/icons/SaveAlt';
 import CancelIcon from '@material-ui/icons/CancelPresentation';
 
-// const useStyles = makeStyles({
-//   avatar: {
-//     backgroundColor: blue[100],
-//     color: blue[600],
-//   },
-//   root: {
-//     width: "100%",
-//   },
-// });
-
-// export default function NewTaskComponents(props) {
-
-// }
-// const classes = useStyles();
-
 class App extends React.Component {
-  //  { open } = this.props;
 
   state = {
-    kind: "",
+    kind: '',
     description: "",
+    error: "",
   };
 
   handleNewTaskForm = (e, key) => {
@@ -47,64 +33,79 @@ class App extends React.Component {
       });
     }
 
-
-
   };
 
-  handleNewTaskPrepare = () => {
-    const now = new Date();
-    let day = now.getDate();
-    let month = now.getMonth() + 1;
-    let year = now.getFullYear();
-    let hour = now.getHours();
-    let minutes = now.getMinutes();
-    let seconds = now.getSeconds();
-
-    // Formatowanie czasu:
-    if (day < 10) {
-      day = `0${day}`;
-    }
-
-    if (month < 10) {
-      month = `0${month}`;
-    }
-
-    if (hour < 10) {
-      hour = `0${hour}`;
-    }
-
-    if (minutes < 10) {
-      minutes = `0${minutes}`;
-    }
-
-    if (seconds < 10) {
-      seconds = `0${seconds}`;
-    }
-
-    const time = `${day}.${month}.${year} | ${hour}:${minutes}:${seconds}`;
-    let counter = 0;
-    this.props.tasks.map((task, id) => {
-      counter++;
-    });
-
-    const newTask = {
-      id: counter,
-      kind: this.state.kind,
-      description: this.state.description,
-      date: time,
-      done: false,
-      liked: false,
-      deleted: false,
-      username: this.props.loggedUser,
-    };
-
-    this.props.handleAddNewTask(newTask);
-    this.props.handleNewTask();
-
+  cancel = () => {
     this.setState({
-      kind: "",
-      description: "",
+      error: ''
     });
+    this.props.handleNewTask();
+  }
+
+  handleNewTaskPrepare = () => {
+    if (this.state.kind !== '' && this.state.description !== '') {
+      this.setState({
+        error: ''
+      });
+      const now = new Date();
+      let day = now.getDate();
+      let month = now.getMonth() + 1;
+      let year = now.getFullYear();
+      let hour = now.getHours();
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+
+      // Formatowanie czasu:
+      if (day < 10) {
+        day = `0${day}`;
+      }
+
+      if (month < 10) {
+        month = `0${month}`;
+      }
+
+      if (hour < 10) {
+        hour = `0${hour}`;
+      }
+
+      if (minutes < 10) {
+        minutes = `0${minutes}`;
+      }
+
+      if (seconds < 10) {
+        seconds = `0${seconds}`;
+      }
+
+      const time = `${day}.${month}.${year} | ${hour}:${minutes}:${seconds}`;
+      let counter = 0;
+      this.props.tasks.map((task, id) => {
+        counter++;
+      });
+
+      const newTask = {
+        id: counter,
+        kind: this.state.kind,
+        description: this.state.description,
+        date: time,
+        done: false,
+        liked: false,
+        deleted: false,
+        username: this.props.loggedUser,
+      };
+
+      this.props.handleAddNewTask(newTask);
+      this.props.handleNewTask();
+
+      this.setState({
+        kind: "",
+        description: "",
+      });
+
+    } else {
+      this.setState({
+        error: 'Prosze uzupelnic wszystkie pola'
+      });
+    }
   };
 
   render() {
@@ -116,10 +117,18 @@ class App extends React.Component {
           aria-labelledby="simple-dialog-title"
           open={this.props.open}
         >
-          <DialogTitle id="simple-dialog-title">Dodaj nowe zadanie</DialogTitle>
 
           <form noValidate autoComplete="off">
+
             <List>
+              <ListItem> <Typography variant='h6'>Dodaj nowe zadanie</Typography></ListItem>
+
+              <ListItem>
+                {this.state.error === '' ? null :
+                  <Typography variant='inerheit' color='secondary'>
+                    {this.state.error}
+                  </Typography>}
+              </ListItem>
               <ListItem>
                 <TextField
                   id="standard-select-currency"
@@ -170,7 +179,7 @@ class App extends React.Component {
 
           <DialogActions>
             <Button
-              onClick={this.props.handleNewTask}
+              onClick={this.cancel}
               color="secondary"
               variant="contained"
               startIcon={<CancelIcon />}

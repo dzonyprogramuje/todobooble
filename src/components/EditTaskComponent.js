@@ -12,24 +12,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import SaveIcon from '@material-ui/icons/SaveAlt';
 import CancelIcon from '@material-ui/icons/CancelPresentation';
 
-// const useStyles = makeStyles({
-//   avatar: {
-//     backgroundColor: blue[100],
-//     color: blue[600],
-//   },
-//   root: {
-//     width: "100%",
-//   },
-// });
-
-// export default function NewTaskComponents(props) {
-
-// }
-// const classes = useStyles();
-
 class EditTaskComponent extends React.Component {
-  //  { open } = this.props;
-
   state = {
     id: undefined,
     kind: "",

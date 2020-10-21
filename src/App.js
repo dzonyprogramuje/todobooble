@@ -95,7 +95,6 @@ class App extends React.Component {
   });
 
   paletteSwitch = (value) => {
-    console.log(value);
 
     this.setState({
       palette: value,
@@ -173,9 +172,8 @@ class App extends React.Component {
     });
   };
 
-  apiWeather = () => {
-    axios.get(adressWeather).then((res) => {
-
+  async apiWeather() {
+    await axios.get(adressWeather).then((res) => {
       const prefix = res.data;
 
       this.setState({
@@ -201,10 +199,12 @@ class App extends React.Component {
         }
       });
     });
+
   };
 
-  exchange = () => {
-    axios.get(adressExchangeRate_PLN).then((res) => {
+  async exchange() {
+
+    await axios.get(adressExchangeRate_PLN).then((res) => {
       this.setState({
         exchangeRate: {
           PLN: res.data.rates.PLN,
@@ -212,7 +212,7 @@ class App extends React.Component {
       });
     });
 
-    axios.get(adressExchangeRate_USD).then((res) => {
+    await axios.get(adressExchangeRate_USD).then((res) => {
       this.setState(prevState => {
         return {
           exchangeRate: {
@@ -223,6 +223,7 @@ class App extends React.Component {
       });
 
     });
+
   }
 
   handleAlert = (status, message) => {
@@ -246,10 +247,6 @@ class App extends React.Component {
     });
     this.apiWeather();
     this.exchange();
-
-
-    console.log(JSON.parse(localStorage.getItem('memory')) == this.state);
-
   };
 
   handleNewTask = () => {
@@ -411,16 +408,11 @@ class App extends React.Component {
   };
 
   handleLogged = () => {
-
     this.setState({
       logged: false,
-      loggedUser: "",
-      tasks: [],
-      news: [],
+      loggedUser: undefined,
     });
-
     localStorage.removeItem('memory');
-
   };
 
 
@@ -433,11 +425,15 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    localStorage.setItem('memory', JSON.stringify(this.state));
-
+    if (this.state.logged !== false) {
+      localStorage.setItem('memory', JSON.stringify(this.state));
+    } else {
+      localStorage.setItem('memory', JSON.stringify(this.state));
+    }
   }
 
   componentWillUnmount() {
+
     localStorage.setItem('memory', JSON.stringify(this.state));
   }
 

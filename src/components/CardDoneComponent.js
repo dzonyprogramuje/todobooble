@@ -74,7 +74,6 @@ export default function CardDoneComponent(props) {
         counter > 0 ?
 
           tasks.map((task, id) => {
-            console.log(task);
             if (task.done === true) {
               return (
                 <Grid item xs={12} style={{ marginTop: 10 }}>
@@ -164,7 +163,6 @@ export default function CardDoneComponent(props) {
               Nie posiadasz zadnych ukonczonych zadan zadan
               </Button>
           </Grid>
-
 
       }
     </Grid >

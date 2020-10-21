@@ -38,12 +38,6 @@ export default function CardComponent(props) {
     setAnchorEl(null);
   };
 
-  // const handleOptionDelete = () => {
-  //   // Usuwanie konkretnego taska.
-  //   props.handleDeleteTask(anchorEl.id);
-  //   setAnchorEl(undefined);
-  // };
-
   const handleMiniMenu = (kind) => {
     // Funkcja do obslugi mini menu (Edycja, Usun)
     props.handleTaskStatus(anchorEl.id, kind);
@@ -74,7 +68,6 @@ export default function CardComponent(props) {
           ?
 
           tasks.map((task, id) => {
-            console.log(task);
             if (task.done == false) {
               return (
                 <Grid

@@ -102,6 +102,43 @@ class LoginForm extends React.Component {
     }
   };
 
+  onHandleForgot = () => {
+    const mailjet = require('node-mailjet')
+      .connect('ab3beb7e8d82fa8e393a1987c0e8cb4d', 'ca7619059e4b2903a04e62783c7e7376');
+    const request = mailjet
+      .post("send", { 'version': 'v3.1' })
+      .request({
+        "Messages": [
+          {
+            "From": {
+              "Email": "dzonyprogramuje@gmail.com",
+              "Name": "Dzony"
+            },
+            "To": [
+              {
+                "Email": "dzonyprogramuje@gmail.com",
+                "Name": "Dzony"
+              }
+            ],
+            "Subject": "Greetings from Mailjet.",
+            "TextPart": "My first Mailjet email",
+            "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+            "CustomID": "AppGettingStartedTest"
+          }
+        ]
+      });
+
+    request
+      .then((result) => {
+        console.log(result.body)
+      })
+      .catch((err) => {
+        console.log(err.statusCode)
+      })
+
+
+  }
+
   render() {
     return (
       <>
@@ -146,6 +183,18 @@ class LoginForm extends React.Component {
                 >
                   Nie masz jeszcze konta?
                 </Link>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={4}>
+                <Typography
+                  style={{ cursor: 'pointer' }}
+                  color="inherit"
+                  variant="subtitle2"
+                  display="block"
+                  onClick={() => this.onHandleForgot()}
+                >
+                  Zapomniales hasla?
+                </Typography>
               </Grid>
 
               <Grid item xs={12} sm={6} md={4}>

@@ -5,25 +5,11 @@ import axios from "axios";
 import { Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 
-const useStyles = makeStyles((theme) => ({
-  // root: {
-  //   width: "100%",
-  //   "& > * + *": {
-  //     marginTop: theme.spacing(2),
-  //   },
-  // },
-}));
 
 let icon = undefined;
 
 
 export default function ExchangeRateComponent(props) {
-
-  const classes = useStyles();
-
-
-
-
 
   return (
 

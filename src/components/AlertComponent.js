@@ -13,18 +13,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AlertComponent(props) {
-  //   const [open, setOpen] = React.useState(false);
-
-  //   const handleClick = () => {
-  //     setOpen(true);
-  //   };
-
-  //   const handleClose = (event, reason) => {
-  //     if (reason === "clickaway") {
-  //       return;
-  //     }
-  //     setOpen(false);
-  //   };
 
   const classes = useStyles();
 
@@ -37,10 +25,6 @@ export default function AlertComponent(props) {
       >
         <Alert variant="filled" severity={props.alertStatus}>{props.alert}</Alert>
       </Snackbar>
-
-      {/* <Alert severity="warning">This is a warning alert — check it out!</Alert>
-      <Alert severity="info">This is an info alert — check it out!</Alert>
-      <Alert severity="success">This is a success alert — check it out!</Alert> */}
     </div>
   );
 }
