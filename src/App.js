@@ -19,7 +19,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import axios from "axios";
 
-import { adress, lat, lon, adressNews, keyWeather, adressWeather, adressExchangeRate_PLN, adressExchangeRate_USD } from './hidden.js';
+import { adress, lat, lon, adressNews, keyWeather, adressWeather, adressExchangeRate_PLN, adressExchangeRate_USD } from '../hidden/variables.js';
 
 class App extends React.Component {
 
