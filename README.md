@@ -1,14 +1,13 @@
-# TODO APP
-TODO-Booble - Backend and Frontend builded with a JavaScript as TODO-APP.
+# TODO APP - Frontend part
+TODO-Booble - It's a APP with Backend and Frontend builded with a JavaScript as TODO-APP.
 
 This project was created as part of the learning of JavaScript by Dzonyprogramuje.
 
 
-
-Link to the project
+Link to the App
 
 ## Website
 https://todohure.herokuapp.com/
 
-_______________________________
-The project is not yet complete
+_________________________________
+The project is actually only BETA
