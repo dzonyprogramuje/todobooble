@@ -12,7 +12,7 @@
 /build
 
 # variables
-/hidden.js
+/src/hidden.js
 
 /metas.txt
 
