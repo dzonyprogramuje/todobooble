@@ -45,8 +45,6 @@ export default function CardComponent(props) {
   };
 
   const handleTaskIcons = (e, kind) => {
-    // Funkcja do obslugi mini menu (Edycja, Usun)
-    // props.handleTaskStatus(id, kind);
 
     props.handleTaskStatus(e.currentTarget.id, kind);
     setAnchorEl(undefined);

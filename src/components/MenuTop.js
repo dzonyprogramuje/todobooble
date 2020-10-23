@@ -94,8 +94,6 @@ function MenuTop(props) {
                 </Typography>
               </Box>
 
-
-
               <Box display="flex" flexGrow={1} justifyContent="flex-end">
                 <ExchangeRateComponent pln={props.pln} usd={props.usd} />
                 <WeatherComponent weather={props.weather} />
@@ -128,10 +126,8 @@ function MenuTop(props) {
           onKeyDown={toggleDrawer(false)}
         >
 
-
-
           <List className="navigation_bar">
-            <ListItem button key="Shopping" to="/simple" component={Link} >
+            <ListItem button key="Shopping" to="/simple" component={Link} onClick={props.downloadTasks}>
               <ListItemIcon>
                 <CreateIcon />
               </ListItemIcon>
@@ -151,10 +147,10 @@ function MenuTop(props) {
                 <ListIcon />
               </ListItemIcon>
               {/* <Typography style={{ textDecoration: 'none' }}>XXD</Typography> */}
-              <ListItemText color='innerheit' primary="Moje zadania" />
+              <ListItemText color='innerheit' primary="Moje zadania" onClick={props.downloadTasks} />
             </ListItem>
 
-            <ListItem button key="Done" to="/done" component={Link} >
+            <ListItem button key="Done" to="/done" component={Link} onClick={props.downloadTasks}>
               <ListItemIcon>
                 <DoneIcon />
               </ListItemIcon>

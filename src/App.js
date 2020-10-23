@@ -19,23 +19,12 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import axios from "axios";
 
-const adress = "https://todohure.herokuapp.com";
-// const adress = "http://localhost:5000";
-// const keyNews = "5d3d946c272a4416a11bbbb8a6d0a04b";
-// const adressNews = `https://newsapi.org/v2/top-headlines?country=pl&category=business&apiKey=${keyNews}`;
-const lat = 51.1496361;
-const lon = 15.0065645;
-const adressNews = "https://saurav.tech/NewsAPI/top-headlines/category/health/in.json";
-const keyWeather = "fe08ab0fa4e3a3f3b01650df3e38b7d0";
-const adressWeather = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${keyWeather}&units=metric`;
-
-const adressExchangeRate_PLN = `https://api.exchangeratesapi.io/latest?symbols=PLN`;
-const adressExchangeRate_USD = `https://api.exchangeratesapi.io/latest?base=USD&symbols=PLN`;
-
+import { adress, lat, lon, adressNews, keyWeather, adressWeather, adressExchangeRate_PLN, adressExchangeRate_USD } from './hidden.js';
 
 class App extends React.Component {
 
   state = {
+    selectedFile: null,
     palette: 'dark',
     logged: false,
     loggedUser: "",
@@ -75,10 +64,10 @@ class App extends React.Component {
     palette: {
       type: 'dark',
       primary: {
-        main: '#784dc8',
+        main: '#BC4AC9',
       },
       secondary: {
-        main: '#e52c78',
+        main: '#e6498e',
       },
     },
     shape: {
@@ -411,6 +400,8 @@ class App extends React.Component {
     this.setState({
       logged: false,
       loggedUser: undefined,
+      tasks: [],
+      simpleTasks: []
     });
     localStorage.removeItem('memory');
   };
@@ -428,14 +419,26 @@ class App extends React.Component {
     if (this.state.logged !== false) {
       localStorage.setItem('memory', JSON.stringify(this.state));
     } else {
-      localStorage.setItem('memory', JSON.stringify(this.state));
+
     }
+
   }
 
-  componentWillUnmount() {
 
-    localStorage.setItem('memory', JSON.stringify(this.state));
-  }
+
+  // fileSelectedHandler = e => {
+  //   this.setState({
+  //     selectedFile: event.target.files[0]
+  //   });
+  // }
+
+
+  // fileUploadHandler = () =>{
+  //   axios.post('');
+  // }
+
+
+
 
   render() {
     return (
@@ -444,6 +447,7 @@ class App extends React.Component {
           <CssBaseline />
           <Router>
             <MenuTop
+              downloadTasks={this.downloadTasks}
               logged={this.state.logged === true ? true : false}
               handleLogged={this.handleLogged}
               loggedUser={this.state.loggedUser}
@@ -465,6 +469,8 @@ class App extends React.Component {
               alertClose={this.alertClose.bind(this)}
             />
             <Container>
+              {/* <input type='file' onChange={this.fileSelectedHandler} />
+              <button onClick={this.fileUploadHandler}></button> */}
               {this.state.logged === false ? (
                 <LoginForm
                   handleLoggedUser={this.handleLoggedUser.bind(this)}

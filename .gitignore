@@ -11,6 +11,11 @@
 # production
 /build
 
+# variables
+/hidden.js
+
+/metas.txt
+
 # misc
 .DS_Store
 .env.local

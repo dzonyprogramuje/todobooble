@@ -90,6 +90,8 @@ class UserComponent extends React.Component {
             </ListItem>
 
 
+            {/* 
+            // Zmiana hasla uzytkownika
             <ListItem>
               <TextField
                 margin='normal'
@@ -126,7 +128,7 @@ class UserComponent extends React.Component {
                   shrink: true,
                 }}
               />
-            </ListItem>
+            </ListItem> */}
 
             <ListItem style={{ marginTop: 20 }}>
               <TextField
