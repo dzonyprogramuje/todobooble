@@ -7,7 +7,7 @@ This project was created as part of the learning of JavaScript by Dzonyprogramuj
 Link to the App
 
 ## Website
-https://todohure.herokuapp.com/
+https://todobooble.herokuapp.com/
 
 _________________________________
 The project is actually only BETA
